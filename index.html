@@ -2,1063 +2,830 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>SmartGastro QR – Demo-Version</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    * { box-sizing: border-box; }
-
-    :root {
-      --primary: #1a73e8;
-      --primary-dark: #1553a5;
-      --bg: #f5f5f7;
-      --card-bg: #ffffff;
-      --accent-green: #009246;  /* Itália :) */
-      --accent-red: #ce2b37;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --shadow-soft: 0 4px 14px rgba(0,0,0,0.08);
-      --text-main: #222;
-      --text-muted: #555;
-      --border-light: #e2e2e6;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text-main);
-    }
-
-    a { color: var(--primary-dark); }
-
-    .page {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 10px 10px 60px;
-    }
-
-    /* HEADER */
-    header {
-      background: linear-gradient(120deg, #ffffff 0%, #e3f0ff 40%, #ffffff 100%);
-      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-      box-shadow: 0 3px 18px rgba(0,0,0,0.12);
-      padding: 14px 12px 16px;
-      margin-bottom: 10px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-wrap {
-      flex: 0 0 auto;
-      width: 70px;
-    }
-
-    .logo-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 16px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-    }
-
-    .header-text {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .header-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0 0 4px;
-      color: #111;
-    }
-
-    .header-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin: 0;
-    }
-
-    .flag-strip {
-      height: 4px;
-      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-      background: linear-gradient(90deg, var(--accent-green) 0%, #ffffff 50%, var(--accent-red) 100%);
-      margin-top: 8px;
-    }
-
-    .lang-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 8px;
-    }
-
-    .lang-btn {
-      border: 1px solid #d0d0d5;
-      background: #ffffff;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      cursor: pointer;
-    }
-
-    .lang-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    /* MAIN CARDS */
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-      padding: 16px;
-      margin-top: 20px;   /* desce um pouco o conteúdo */
-    }
-
-    h2 {
-      margin-top: 0;
-      font-size: 1.2rem;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 16px;
-    }
-
-    @media (max-width: 720px) {
-      .two-col {
-        grid-template-columns: 1fr;
-      }
-      header { border-radius: 0 0 14px 14px; }
-      .page { padding: 6px 6px 50px; }
-    }
-
-    ul.checklist {
-      padding-left: 1.1rem;
-      margin: 0.4rem 0 0.5rem;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    ul.checklist li::marker { content: "✔ "; }
-
-    .steps {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      padding-left: 1.1rem;
-    }
-
-    /* VIDEO */
-    .video-card h2 { margin-bottom: 8px; }
-
-    .video-wrapper {
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-soft);
-      background: #000;
-    }
-
-    .video-wrapper video {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* DEMO ORDER */
-    .demo-header-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .demo-header-row input[type="number"],
-    .demo-header-row input[type="text"] {
-      padding: 6px 8px;
-      border-radius: 10px;
-      border: 1px solid var(--border-light);
-      font-size: 0.9rem;
-    }
-
-    .badge-demo {
-      font-size: 0.75rem;
-      background: #ffe6b5;
-      padding: 3px 8px;
-      border-radius: 999px;
-      color: #6d4c00;
-    }
-
-    .items-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .item-card {
-      border-radius: var(--radius-md);
-      border: 1px solid #e3e3ea;
-      padding: 10px;
-      background: #ffffff;
-    }
-
-    .item-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 4px;
-    }
-
-    .item-name {
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .item-price {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--accent-green);
-    }
-
-    .item-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .item-row label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .item-row input[type="number"],
-    .item-row select {
-      padding: 5px 6px;
-      border-radius: 8px;
-      border: 1px solid #d5d5dd;
-      font-size: 0.8rem;
-      min-width: 70px;
-    }
-
-    .item-row select.flavours {
-      min-width: 140px;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 7px 14px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .btn-add {
-      background: #1b8f3a;
-      color: #fff;
-    }
-
-    .btn-add:hover { background: #15722f; }
-
-    .btn-small {
-      padding: 5px 10px;
-      font-size: 0.78rem;
-    }
-
-    .btn-outline {
-      background: #fff;
-      border: 1px solid var(--border-light);
-      color: var(--text-main);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--primary);
-      color: var(--primary-dark);
-    }
-
-    .order-summary {
-      margin-top: 10px;
-      border-top: 1px dashed #d3d3dd;
-      padding-top: 8px;
-      font-size: 0.9rem;
-    }
-
-    .order-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 3px;
-    }
-
-    .order-total {
-      font-weight: 700;
-      margin-top: 4px;
-    }
-
-    .demo-note {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .order-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .btn-wa {
-      background: #25D366;
-      color: #fff;
-    }
-
-    .btn-wa:hover { background: #1CAF54; }
-
-    .btn-clear {
-      background: #e53935;
-      color: #fff;
-    }
-
-    /* CONTACT */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 16px;
-    }
-    @media (max-width: 720px) {
-      .contact-grid { grid-template-columns: 1fr; }
-    }
-
-    .contact-field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-bottom: 6px;
-      font-size: 0.85rem;
-    }
-
-    .contact-field input,
-    .contact-field textarea {
-      border-radius: 10px;
-      border: 1px solid var(--border-light);
-      padding: 7px 9px;
-      font-size: 0.85rem;
-      resize: vertical;
-    }
-
-    .contact-info {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* FOOTER LEGAL */
-    footer {
-      margin-top: 18px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .footer-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    @media (max-width: 720px) {
-      .footer-cards { grid-template-columns: 1fr; }
-    }
-
-    .footer-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-      padding: 12px;
-    }
-
-    .footer-card h3 {
-      margin-top: 0;
-      font-size: 1rem;
-    }
-
-    .legal-lang-select {
-      margin-bottom: 6px;
-      font-size: 0.8rem;
-      padding: 3px 6px;
-      border-radius: 999px;
-      border: 1px solid var(--border-light);
-    }
-
-    .legal-text { font-size: 0.8rem; }
-    .legal-text p { margin: 4px 0; }
-
-    .footer-bottom {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 0.78rem;
-      color: #777;
-    }
-  </style>
-</head>
-<body>
-<div class="page">
-
-  <!-- HEADER -->
-  <header>
-    <div class="header-inner">
-      <div class="logo-wrap">
-        <img src="IMG-20251119-WA0011.jpg" alt="SmartGastro QR Logo">
-      </div>
-      <div class="header-text">
-        <h1 class="header-title">SmartGastro QR</h1>
-        <p class="header-subtitle" id="header-subtitle">
-          Digitale Bestellungen für Gastronomie – einfach per QR-Code am Tisch.
-        </p>
-
-        <div class="lang-bar">
-          <button class="lang-btn active" data-lang-global="de">Deutsch</button>
-          <button class="lang-btn" data-lang-global="en">English</button>
-          <button class="lang-btn" data-lang-global="pt">Português</button>
-          <button class="lang-btn" data-lang-global="it">Italiano</button>
-          <button class="lang-btn" data-lang-global="es">Español</button>
-          <button class="lang-btn" data-lang-global="fr">Français</button>
-        </div>
-      </div>
-    </div>
-    <div class="flag-strip"></div>
-  </header>
-
-  <!-- INTRO + VIDEO -->
-  <div class="card">
-    <div class="two-col">
-      <div>
-
-
-        
-        <h2 id="about-title">Was ist SmartGastro QR?</h2>
-        <p id="about-text">
-          SmartGastro QR ist ein flexibles, modernes Bestellsystem für Gastronomie-Betriebe.
-          Gäste scannen den QR-Code am Tisch, wählen Produkte aus der digitalen Speisekarte
-          und schicken ihre Bestellung direkt an Ihr Service-Team – ohne App, ohne Registrierung.
-        </p>
-
-
-        
-
-        <ul class="checklist" id="about-points">
-          <li>Funktioniert auf Handy, Tablet und PC</li>
-          <li>Kein Login, keine App-Installation notwendig</li>
-          <li>Ideal für Eiscafés, Restaurants, Bars und Cafés</li>
-          <li>Schnellerer Service – weniger Wartezeiten</li>
-          <li>Sorten, Sahne, Extras und Portionen frei wählbar</li>
-          <li>Optional: Weiterleitung an WhatsApp oder Küchendrucker</li>
-        </ul>
-
-
-        
-
-        <p id="steps-title"><strong>Wie funktioniert das System?</strong></p>
-        <ol class="steps" id="steps-list">
-          <li>Gast scannt den QR-Code am Tisch mit der Handy-Kamera.</li>
-          <li>Die digitale Speisekarte öffnet sich im Browser.</li>
-          <li>Tischnummer wird eingetragen (Pflichtfeld).</li>
-          <li>Produkte und Optionen werden ausgewählt.</li>
-          <li>Bestellung wird z. B. per WhatsApp an Ihr Team gesendet.</li>
-        </ol>
-      </div>
-
-      <div class="video-card">
-        <h2>Demo-Video – SmartGastro QR in Aktion</h2>
-        <div class="video-wrapper">
-          <video controls preload="metadata">
-            <source src="VID-20251120-WA0002.mp4" type="video/mp4">
-            Ihr Browser unterstützt das Video-Tag nicht.
-          </video>
-        </div>
-        <p class="demo-note">
-          Dieses Video zeigt ein echtes Beispiel einer digitalen Speisekarte in einem Eiscafé.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- DEMO ORDER -->
-  <div class="card" id="demo">
-    <div class="demo-header-row">
-      <h2 style="margin:0;">Demo-Bestellung (kleiner Auszug aus dem Menü)</h2>
-      <span class="badge-demo">Nur Demo – keine echte Bestellung</span>
-    </div>
-    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">
-      Demo mit mehreren Artikeln aus einem Eiscafé: Kinderportion, Kinderbecher, Pinocchio,
-      verschiedene Spaghetti-Eis-Becher und Kaffee-Spezialitäten. In der Vollversion
-      werden natürlich alle Produkte hinterlegt.
-    </p>
-
-    <div class="demo-header-row">
-      <label>
-        Tischnummer:
-        <input type="number" id="demoTable" min="1" placeholder="z. B. 4">
-      </label>
-    </div>
-
-    <div class="items-list" id="itemsList">
-      <!-- cards geradas por JavaScript -->
-    </div>
-
-    <div class="order-summary" id="orderSummary">
-      Noch keine Positionen.
-    </div>
-
-    <div class="order-actions">
-      <button class="btn btn-wa btn-small" id="btnDemoWhatsApp">
-        Per WhatsApp senden (Demo)
-      </button>
-      <button class="btn btn-outline btn-small" id="btnDemoPrint">
-        Küchendrucker (Demo)
-      </button>
-      <button class="btn btn-clear btn-small" id="btnDemoClear">
-        Alles löschen
-      </button>
-    </div>
-
-    <p class="demo-note">
-      Demo-Version: Die Bestellung wird nur als Text aufgebaut. In der echten Version
-      wird sie an Ihr Eiscafé / Restaurant gesendet oder mit Ihrem Kassensystem verbunden
-      und kann auf einem Küchendrucker gedruckt werden.
-    </p>
-  </div>
-
-  <!-- KONTAKT & ANFRAGE -->
-  <div class="card" id="kontakt">
-    <h2>Interesse an SmartGastro QR?</h2>
-    <p style="font-size:0.9rem;color:var(--text-muted);">
-      Sie haben ein Eiscafé, Restaurant oder eine Bar und möchten SmartGastro QR testen oder einsetzen?
-      Schreiben Sie uns direkt – gerne auch per WhatsApp.
-    </p>
-
-    <div class="contact-grid">
-      <div>
-        <div class="contact-field">
-          <label for="cfName">Name / Firma *</label>
-          <input id="cfName" type="text" placeholder="Ihr Name oder Firmenname">
-        </div>
-        <div class="contact-field">
-          <label for="cfOrt">Ort / Stadt</label>
-          <input id="cfOrt" type="text" placeholder="z. B. Bad Berleburg">
-        </div>
-        <div class="contact-field">
-          <label for="cfTel">Telefon / WhatsApp *</label>
-          <input id="cfTel" type="text" placeholder="Ihre Nummer für Rückfragen">
-        </div>
-        <div class="contact-field">
-          <label for="cfMsg">Nachricht *</label>
-          <textarea id="cfMsg" rows="4" placeholder="Kurze Beschreibung Ihres Betriebs und was Sie suchen..."></textarea>
-        </div>
-
-        <button class="btn btn-wa" id="btnContactWhatsApp">
-          Anfrage per WhatsApp senden
-        </button>
-        <p class="demo-note">
-          Beim Klick auf den Button öffnet sich WhatsApp mit einer vorbereiteten Nachricht.
-          Sie können den Text vor dem Absenden jederzeit bearbeiten.
-        </p>
-      </div>
-
-      <div class="contact-info">
-        <strong>Direkter Kontakt</strong><br>
-        Paulo – SmartGastro QR<br>
-        Telefon / WhatsApp: <a href="https://wa.me/4917672809926" target="_blank">+49 176 7280 9926</a><br>
-        E-Mail: <a href="mailto:paulo.sanremo@web.de">paulo.sanremo@web.de</a><br><br>
-
-        <p>
-          Wir unterstützen Sie bei:
-        </p>
-        <ul class="checklist" style="font-size:0.85rem;">
-          <li>Anpassung an Ihre Speisekarte (Eis, Snacks, Getränke …)</li>
-          <li>Einrichtung der QR-Codes für alle Tische</li>
-          <li>Optional: Verbindung zu Küchendrucker oder Kasse</li>
-          <li>Schulung für Ihr Team (kurze Einführung)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER LEGAL -->
-  <footer>
-    <div class="footer-cards">
-      <!-- Rechtliche Hinweise -->
-      <div class="footer-card">
-        <h3>Rechtliche Hinweise (Demo)</h3>
-        <label>
-          Sprache:
-          <select class="legal-lang-select" data-target="legal">
-            <option value="de">Deutsch</option>
-            <option value="en">English</option>
-            <option value="pt">Português</option>
-            <option value="it">Italiano</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-          </select>
-        </label>
-
-        <div class="legal-text" data-group="legal" data-lang="de">
-          <p>Dies ist eine Demo-Version von SmartGastro QR. Sie dient ausschließlich zur
-            Präsentation des Funktionsumfangs und ersetzt keine steuerrechtliche oder
-            rechtliche Beratung.</p>
-          <p>In der echten Produktiv-Version werden alle Verkäufe wie gewohnt über Ihr
-            Kassensystem verbucht. Die Anpassung an GoBD, KassenSichV und lokale Vorgaben
-            erfolgt in Zusammenarbeit mit Ihrem Steuerberater und/oder Kassenanbieter.</p>
-        </div>
-        <div class="legal-text" data-group="legal" data-lang="en" hidden>
-          <p>This is a demo version of SmartGastro QR. It is for presentation purposes only
-            and does not replace tax or legal advice.</p>
-          <p>In the live version, all sales are booked via your existing POS system.
-            Compliance with local tax and fiscal regulations must be implemented together
-            with your tax advisor and POS provider.</p>
-        </div>
-        <div class="legal-text" data-group="legal" data-lang="pt" hidden>
-          <p>Esta é uma versão de demonstração do SmartGastro QR. Serve apenas para
-            apresentação e não substitui aconselhamento fiscal ou jurídico.</p>
-          <p>Na versão real, todas as vendas são registadas normalmente na sua caixa.
-            A adaptação às leis fiscais e obrigações locais deve ser feita em conjunto com
-            o seu contabilista e fornecedor de software de faturação.</p>
-        </div>
-        <div class="legal-text" data-group="legal" data-lang="it" hidden>
-          <p>Questa è una versione demo di SmartGastro QR. Serve solo come presentazione e
-            non sostituisce la consulenza fiscale o legale.</p>
-          <p>Nella versione operativa tutte le vendite vengono registrate tramite il vostro
-            sistema di cassa. L’adeguamento alle normative fiscali locali avviene insieme
-            al vostro commercialista e al fornitore del registratore di cassa.</p>
-        </div>
-        <div class="legal-text" data-group="legal" data-lang="es" hidden>
-          <p>Esta es una versión de demostración de SmartGastro QR. Solo sirve para
-            presentación y no sustituye el asesoramiento fiscal o legal.</p>
-          <p>En la versión real todas las ventas se registran a través de su sistema de caja.
-            La adaptación a la normativa fiscal local debe realizarse junto con su asesor
-            fiscal y proveedor de TPV.</p>
-        </div>
-        <div class="legal-text" data-group="legal" data-lang="fr" hidden>
-          <p>Il s’agit d’une version de démonstration de SmartGastro QR. Elle est fournie à
-            titre de présentation et ne remplace pas un conseil fiscal ou juridique.</p>
-          <p>Dans la version productive, toutes les ventes sont enregistrées via votre
-            système de caisse. L’adaptation aux règles fiscales locales doit être mise en
-            place avec votre expert-comptable et votre fournisseur de caisse.</p>
-        </div>
-      </div>
-
-      <!-- Datenschutz -->
-      <div class="footer-card">
-        <h3>Datenschutz / Privacy (Demo)</h3>
-        <label>
-          Sprache:
-          <select class="legal-lang-select" data-target="privacy">
-            <option value="de">Deutsch</option>
-            <option value="en">English</option>
-            <option value="pt">Português</option>
-            <option value="it">Italiano</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-          </select>
-        </label>
-
-        <div class="legal-text" data-group="privacy" data-lang="de">
-          <p>In dieser Demo werden keine personenbezogenen Daten dauerhaft gespeichert.
-            Eingegebene Informationen dienen nur zur Simulation einer Bestellung oder
-            Anfrage.</p>
-          <p>In einer echten Installation werden alle Datenschutzpflichten (z. B. DSGVO,
-            Informationspflichten, Auftragsverarbeitung) individuell mit Ihnen abgestimmt.
-          </p>
-        </div>
-        <div class="legal-text" data-group="privacy" data-lang="en" hidden>
-          <p>This demo does not store any personal data permanently. Entered information is
-            only used to simulate an order or request.</p>
-          <p>In a real installation, all privacy obligations (e.g. GDPR information duties,
-            data processing agreements) are implemented individually for your business.</p>
-        </div>
-        <div class="legal-text" data-group="privacy" data-lang="pt" hidden>
-          <p>Nesta demo não são guardados dados pessoais de forma permanente. As
-            informações inseridas servem apenas para simular um pedido ou contacto.</p>
-          <p>Numa instalação real, todas as obrigações de proteção de dados (por exemplo
-            RGPD, informações ao cliente e contratos de processamento de dados) são
-            adaptadas ao seu negócio.</p>
-        </div>
-        <div class="legal-text" data-group="privacy" data-lang="it" hidden>
-          <p>In questa demo non vengono memorizzati in modo permanente dati personali.
-            Le informazioni inserite servono solo per simulare un ordine o una richiesta.</p>
-          <p>In un’installazione reale tutti gli obblighi in materia de protezione dei dati
-            (ad es. GDPR, informative e contratti di trattamento) vengono adattati alla
-            vostra attività.</p>
-        </div>
-        <div class="legal-text" data-group="privacy" data-lang="es" hidden>
-          <p>En esta demo no se guardan datos personales de forma permanente. La
-            información introducida solo sirve para simular un pedido o una solicitud.</p>
-          <p>En una instalación real, todas las obligaciones de protección de datos
-            (por ejemplo RGPD, información al cliente y contratos de tratamiento de datos)
-            se adaptan a su negocio.</p>
-        </div>
-        <div class="legal-text" data-group="privacy" data-lang="fr" hidden>
-          <p>Dans cette démo, aucune donnée personnelle n’est stockée de manière
-            permanente. Les informations saisies servent uniquement à simuler une commande
-            ou une demande.</p>
-          <p>Dans une installation réelle, toutes les obligations en matière de protection
-            des données (RGPD, informations client, contrats de traitement) sont adaptées
-            à votre établissement.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      © 2025 SmartGastro QR – Demo-Version. Alle Rechte vorbehalten.
-    </div>
-  </footer>
-
-</div>
-
-<script>
-  /* ==== TEXTOS MULTILINGUES (TOP) ==== */
-  const langTexts = {
-    de: {
-      subtitle: "Digitale Bestellungen für Gastronomie – einfach per QR-Code am Tisch.",
-      aboutTitle: "Was ist SmartGastro QR?",
-      aboutText:
-        "SmartGastro QR ist ein flexibles, modernes Bestellsystem für Gastronomie-Betriebe. Gäste scannen den QR-Code am Tisch, wählen Produkte aus der digitalen Speisekarte und schicken ihre Bestellung direkt an Ihr Service-Team – ohne App, ohne Registrierung.",
-      stepsTitle: "Wie funktioniert das System?",
-      stepsHTML: `
-        <li>Gast scannt den QR-Code am Tisch mit der Handy-Kamera.</li>
-        <li>Die digitale Speisekarte öffnet sich im Browser.</li>
-        <li>Tischnummer wird eingetragen (Pflichtfeld).</li>
-        <li>Produkte und Optionen werden ausgewählt.</li>
-        <li>Bestellung wird z. B. per WhatsApp an Ihr Team gesendet.</li>`
-    },
-    en: {
-      subtitle: "Digital ordering for restaurants – simply via QR code on the table.",
-      aboutTitle: "What is SmartGastro QR?",
-      aboutText:
-        "SmartGastro QR is a flexible, modern ordering system for restaurants and cafés. Guests scan the QR code on the table, choose products from the digital menu and send their order directly to your team – no app, no registration.",
-      stepsTitle: "How does the system work?",
-      stepsHTML: `
-        <li>The guest scans the QR code on the table.</li>
-        <li>The digital menu opens in the browser.</li>
-        <li>The table number is entered (required).</li>
-        <li>Products and options are selected.</li>
-        <li>The order is sent, e.g. via WhatsApp, to your team.</li>`
-    },
-    pt: {
-      subtitle: "Pedidos digitais para restaurantes – apenas com um QR Code na mesa.",
-      aboutTitle: "O que é o SmartGastro QR?",
-      aboutText:
-        "SmartGastro QR é um sistema moderno e flexível de pedidos para gelatarias, cafés e restaurantes. O cliente lê o QR Code na mesa, escolhe os produtos no menu digital e envia o pedido diretamente para a equipa – sem app e sem registo.",
-      stepsTitle: "Como funciona o sistema?",
-      stepsHTML: `
-        <li>O cliente lê o QR Code na mesa com o telemóvel.</li>
-        <li>O menu digital abre-se no navegador.</li>
-        <li>O número da mesa é introduzido (campo obrigatório).</li>
-        <li>Os produtos e opções são escolhidos.</li>
-        <li>O pedido é enviado, por exemplo por WhatsApp, para a sua equipa.</li>`
-    },
-    it: {
-      subtitle: "Ordini digitali per la ristorazione – semplicemente con QR Code al tavolo.",
-      aboutTitle: "Che cos’è SmartGastro QR?",
-      aboutText:
-        "SmartGastro QR è un sistema di ordinazione moderno e flessibile per gelaterie, bar e ristoranti. L’ospite scansiona il QR Code sul tavolo, sceglie i prodotti dal menù digitale e invia l’ordine direttamente al vostro team – senza app e senza registrazione.",
-      stepsTitle: "Come funziona il sistema?",
-      stepsHTML: `
-        <li>L’ospite scansiona il QR Code sul tavolo.</li>
-        <li>Il menù digitale si apre nel browser.</li>
-        <li>Viene inserito il numero del tavolo (obbligatorio).</li>
-        <li>Si scelgono prodotti e opzioni.</li>
-        <li>L’ordine viene inviato, ad esempio tramite WhatsApp, al vostro team.</li>`
-    },
-    es: {
-      subtitle: "Pedidos digitales para hostelería – solo con un código QR en la mesa.",
-      aboutTitle: "¿Qué es SmartGastro QR?",
-      aboutText:
-        "SmartGastro QR es un sistema de pedidos moderno y flexible para heladerías, bares y restaurantes. El cliente escanea el código QR de la mesa, elige los productos en el menú digital y envía el pedido directamente al equipo – sin app y sin registro.",
-      stepsTitle: "¿Cómo funciona el sistema?",
-      stepsHTML: `
-        <li>El cliente escanea el código QR de la mesa.</li>
-        <li>El menú digital se abre en el navegador.</li>
-        <li>Se introduce el número de mesa (obligatorio).</li>
-        <li>Se seleccionan productos y opciones.</li>
-        <li>El pedido se envía, por ejemplo por WhatsApp, a su equipo.</li>`
-    },
-    fr: {
-      subtitle: "Commandes digitales pour la restauration – simplement avec un QR code sur la table.",
-      aboutTitle: "Qu’est-ce que SmartGastro QR ?",
-      aboutText:
-        "SmartGastro QR est un système de commande moderne et flexible pour glaciers, cafés et restaurants. Le client scanne le QR code sur la table, choisit ses produits dans le menu digital et envoie la commande directement à votre équipe – sans application et sans inscription.",
-      stepsTitle: "Comment fonctionne le système ?",
-      stepsHTML: `
-        <li>Le client scanne le QR code sur la table.</li>
-        <li>Le menu digital s’ouvre dans le navigateur.</li>
-        <li>Le numéro de table est saisi (champ obligatoire).</li>
-        <li>Les produits et options sont sélectionnés.</li>
-        <li>La commande est envoyée, par exemple via WhatsApp, à votre équipe.</li>`
-    }
-  };
-
-  const headerSubtitleEl = document.getElementById('header-subtitle');
-  const aboutTitleEl = document.getElementById('about-title');
-  const aboutTextEl = document.getElementById('about-text');
-  const stepsTitleEl = document.getElementById('steps-title');
-  const stepsListEl = document.getElementById('steps-list');
-
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const lang = btn.dataset.langGlobal;
-      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const t = langTexts[lang];
-      if (!t) return;
-      headerSubtitleEl.textContent = t.subtitle;
-      aboutTitleEl.textContent   = t.aboutTitle;
-      aboutTextEl.textContent    = t.aboutText;
-      stepsTitleEl.innerHTML     = '<strong>' + t.stepsTitle + '</strong>';
-      stepsListEl.innerHTML      = t.stepsHTML;
-    });
-  });
-
-  /* ==== DEMO ARTIKEL ==== */
-  const flavours = [
-    "Vanille","Stracciatella","Schokolade","Amarena Kirsch",
-    "Cookies","Erdbeer","Himbeere","Banane","Zitrone","Mango"
-  ];
-
-  const demoItems = [
-    { id: 23,   name: "Kinder Portion",        price: 3.50, portion: true },
-    { id: 24,   name: "Kinderbecher",          price: 4.20, portion: true },
-    { id: 1601, name: "Pinocchio",             price: 5.10, portion: false },
-    { id: 50,   name: "Spaghetti Eis",         price: 6.50, portion: false },
-    { id: 53,   name: "Spaghetti Erdbeere",    price: 8.90, portion: false },
-    { id: 54,   name: "Spaghetti Schoko",      price: 8.90, portion: false },
-    { id: 55,   name: "Spaghetti Amarena",     price: 8.90, portion: false },
-    { id: 3001, name: "Eiskaffee",             price: 5.90, portion: false },
-    { id: 3002, name: "Cappuccino",            price: 3.20, portion: false },
-    { id: 3003, name: "Latte Macchiato",       price: 3.90, portion: false }
-  ];
-
-  const order = [];
-
-  function formatPrice(v) {
-    return v.toFixed(2).replace('.', ',') + " €";
-  }
-
-  function buildDemoCards() {
-    const list = document.getElementById('itemsList');
-    const flavourOptions = flavours.map(f => `<option value="${f}">${f}</option>`).join('');
-
-    demoItems.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'item-card';
-      card.dataset.name = item.name;
-      card.dataset.price = item.price.toString();
-      card.dataset.portion = item.portion ? 'true' : 'false';
-      card.dataset.id = item.id.toString();
-
-      const isCoffee = item.id >= 3000;
-
-      card.innerHTML = `
-        <div class="item-top">
-          <div class="item-name">${item.id}. ${item.name}</div>
-          <div class="item-price">${formatPrice(item.price)}</div>
-        </div>
-        <div class="item-row">
-          <label>
-            Menge:
-            <input type="number" class="qty" min="1" value="1">
-          </label>
-          <label>
-            ${isCoffee ? "Extra:" : "Sahne:"}
-            <select class="cream">
-              ${isCoffee
-                ? `<option value="normal">ohne Extra</option>
-                   <option value="mit Sahne">mit Sahne</option>`
-                : `<option value="mit Sahne">mit Sahne${item.portion ? " (+1,20 €)" : ""}</option>
-                   <option value="ohne Sahne">ohne Sahne</option>`
-              }
-            </select>
-          </label>
-          ${isCoffee ? "" : `
-          <label>
-            Sorten:
-            <select class="flavours" multiple size="2">
-              ${flavourOptions}
-            </select>
-          </label>`}
-          <button class="btn btn-add btn-small add-demo">Hinzufügen</button>
-        </div>
-      `;
-      list.appendChild(card);
-    });
-
-    list.querySelectorAll('.add-demo').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('.item-card');
-        const name = card.dataset.name;
-        const basePrice = parseFloat(card.dataset.price);
-        const isPortion = card.dataset.portion === 'true';
-        const isCoffee = parseInt(card.dataset.id, 10) >= 3000;
-
-        const qty = parseInt(card.querySelector('.qty').value || '1', 10);
-        const cream = card.querySelector('.cream').value;
-        const flavourSelect = card.querySelector('.flavours');
-
-        const selectedFlavours = flavourSelect
-          ? Array.from(flavourSelect.selectedOptions).map(o => o.value)
-          : [];
-
-        let unitPrice = basePrice;
-        if (isPortion && cream === 'mit Sahne') {
-          unitPrice += 1.20; // Aufpreis für Sahne nur bei Portionen
+    <meta charset="UTF-8" />
+    <title>SmartGastro QR – Demo-Version</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        * {
+            box-sizing: border-box;
         }
 
-        const detailsArr = [];
-        if (cream && cream !== 'normal') detailsArr.push(cream);
-        if (selectedFlavours.length) detailsArr.push('Sorten: ' + selectedFlavours.join(', '));
-        const details = detailsArr.join(' | ');
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1553a5;
+            --bg: #f5f5f7;
+            --card-bg: #ffffff;
+            --accent-green: #009246;
+            --accent-red: #ce2b37;
+            --accent-blue: #1976d2;
+            --radius-lg: 18px;
+            --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
 
-        order.push({
-          name,
-          qty,
-          total: unitPrice * qty,
-          details
-        });
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: var(--bg);
+            color: #222;
+        }
 
-        updateOrderSummary();
-      });
-    });
-  }
+        /* Header / Language bar */
 
-  function updateOrderSummary() {
-    const container = document.getElementById('orderSummary');
-    if (!order.length) {
-      container.textContent = 'Noch keine Positionen.';
-      return;
-    }
+        header {
+            background: linear-gradient(120deg, #ffffff, #eef3ff);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 10px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
 
-    container.innerHTML = '';
-    let total = 0;
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+        }
 
-    order.forEach(item => {
-      total += item.total;
-      const row = document.createElement('div');
-      row.className = 'order-line';
-      row.innerHTML = `
-        <div>
-          <strong>${item.qty}× ${item.name}</strong>
-          ${item.details ? `<br><span style="font-size:0.8rem;color:#666;">${item.details}</span>` : ""}
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: 0.02em;
+        }
+
+        .brand-text-sub {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .lang-switch {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: flex-end;
+        }
+
+        .lang-btn {
+            border: none;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            background: #ffffff;
+            color: #333;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            transition: background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.1s;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        /* Hero section with text + video */
+
+        main {
+            padding: 18px 12px 32px 12px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 22px;
+            align-items: stretch;
+            margin-bottom: 28px;
+        }
+
+        .hero-left,
+        .hero-right {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            padding: 18px 18px 20px 18px;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            margin-top: 14px;
+            margin-bottom: 8px;
+        }
+
+        .check-list,
+        .steps-list {
+            margin: 0 0 4px 0;
+            padding-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        .check-list li {
+            margin-bottom: 4px;
+        }
+
+        .steps-list li {
+            margin-bottom: 3px;
+        }
+
+        .info-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            background: #fff4c4;
+            color: #7a5a00;
+            border-radius: 999px;
+            padding: 3px 10px;
+            margin-top: 6px;
+        }
+
+        /* Video / phone frame */
+
+        .hero-right-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--accent-blue);
+        }
+
+        .phone-frame {
+            border-radius: 32px;
+            border: 2px solid #ddd;
+            padding: 10px 8px;
+            background: #111;
+            max-width: 320px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .phone-notch {
+            width: 60px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.35);
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .phone-video-wrapper {
+            margin-top: 14px;
+            border-radius: 22px;
+            overflow: hidden;
+            background: #000;
+            aspect-ratio: 9 / 19;
+        }
+
+        .phone-video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-caption {
+            font-size: 0.8rem;
+            text-align: center;
+            color: #eee;
+            margin-top: 6px;
+            opacity: 0.75;
+        }
+
+        /* Legal + contact section */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            padding: 14px 14px 16px 14px;
+            font-size: 0.9rem;
+        }
+
+        .info-card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .info-card small {
+            font-size: 0.78rem;
+            color: #666;
+        }
+
+        .legal-highlight {
+            font-weight: 600;
+            color: #b71c1c;
+        }
+
+        .contact-lines p {
+            margin: 2px 0;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #25d366;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 0.82rem;
+            margin-top: 8px;
+        }
+
+        .whatsapp-btn span {
+            font-size: 1.05rem;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.78rem;
+            color: #777;
+            margin-top: 16px;
+        }
+
+        footer a {
+            color: inherit;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 960px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-left,
+            .hero-right {
+                padding: 14px 12px 16px 12px;
+            }
+
+            .info-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            header {
+                padding: 8px 10px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .lang-switch {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 12px 8px 22px 8px;
+            }
+
+            .phone-frame {
+                max-width: 260px;
+            }
+
+            .brand-text-title {
+                font-size: 1rem;
+            }
+
+            h1 {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container header-inner">
+        <div class="brand">
+            <div class="brand-logo">
+                <img src="IMG-20251119-WA0011.jpg" alt="SmartGastro QR Logo" />
+            </div>
+            <div>
+                <div class="brand-text-title" data-i18n="brand-title">
+                    SmartGastro QR
+                </div>
+                <div class="brand-text-sub" data-i18n="brand-subtitle">
+                    Digitale Bestellungen für Gastronomie – einfach per QR-Code am Tisch.
+                </div>
+            </div>
         </div>
-        <div>${formatPrice(item.total)}</div>
-      `;
-      container.appendChild(row);
-    });
 
-    const totalDiv = document.createElement('div');
-    totalDiv.className = 'order-total';
-    totalDiv.textContent = 'Gesamt (Demo): ' + formatPrice(total);
-    container.appendChild(totalDiv);
-  }
+        <div class="lang-switch">
+            <button class="lang-btn active" data-lang="de">Deutsch</button>
+            <button class="lang-btn" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="pt">Português</button>
+            <button class="lang-btn" data-lang="it">Italiano</button>
+            <button class="lang-btn" data-lang="es">Español</button>
+            <button class="lang-btn" data-lang="fr">Français</button>
+        </div>
+    </div>
+</header>
 
-  document.getElementById('btnDemoClear').addEventListener('click', () => {
-    order.length = 0;
-    document.getElementById('orderSummary').textContent = 'Noch keine Positionen.';
-    document.getElementById('demoTable').value = '';
-  });
+<main>
+    <div class="container">
+        <!-- HERO: Text + Video -->
+        <section class="hero">
+            <article class="hero-left">
+                <div>
+                    <h1 data-i18n="intro-title">
+                        Was ist SmartGastro QR?
+                    </h1>
+                    <p data-i18n="intro-text">
+                        SmartGastro QR ist ein modernes, flexibles Bestellsystem für Gastronomie-Betriebe.
+                        Gäste scannen den QR-Code am Tisch, öffnen die digitale Speisekarte und schicken ihre
+                        Bestellung direkt an das Service-Team – ohne App, ohne Registrierung.
+                    </p>
 
-  document.getElementById('btnDemoWhatsApp').addEventListener('click', () => {
-    if (!order.length) {
-      alert('Bitte zuerst einige Demo-Artikel hinzufügen.');
-      return;
+                    <h3 data-i18n="features-title">
+                        Vorteile auf einen Blick:
+                    </h3>
+                    <ul class="check-list">
+                        <li data-i18n="features-1">
+                            Funktioniert auf Handy, Tablet und PC
+                        </li>
+                        <li data-i18n="features-2">
+                            Kein Login, keine App-Installation notwendig
+                        </li>
+                        <li data-i18n="features-3">
+                            Ideal für Eiscafés, Restaurants, Bars und Cafés
+                        </li>
+                        <li data-i18n="features-4">
+                            Schnellere Bedienung – weniger Wartezeiten
+                        </li>
+                        <li data-i18n="features-5">
+                            Sorten, Sahne, Extras und Portionen frei wählbar
+                        </li>
+                        <li data-i18n="features-6">
+                            Optional: Weiterleitung an WhatsApp oder Küchendrucker
+                        </li>
+                    </ul>
+
+                    <div class="info-chip">
+                        <span>✔</span>
+                        <span data-i18n="chip-demo">
+                            Diese Seite ist eine Demo – ideal zur Präsentation bei Kunden.
+                        </span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px;">
+                    <h2 data-i18n="steps-title">
+                        Wie funktioniert das System?
+                    </h2>
+                    <ol class="steps-list">
+                        <li data-i18n="steps-1">
+                            Gast scannt den QR-Code am Tisch mit der Handy-Kamera.
+                        </li>
+                        <li data-i18n="steps-2">
+                            Die digitale Speisekarte öffnet sich im Browser.
+                        </li>
+                        <li data-i18n="steps-3">
+                            Tischnummer wird eingetragen (Pflichtfeld).
+                        </li>
+                        <li data-i18n="steps-4">
+                            Produkte und Optionen werden ausgewählt.
+                        </li>
+                        <li data-i18n="steps-5">
+                            Bestellung wird z. B. per WhatsApp an Ihr Team gesendet.
+                        </li>
+                    </ol>
+                </div>
+            </article>
+
+            <aside class="hero-right">
+                <div class="hero-right-title" data-i18n="video-title">
+                    Demo-Video – SmartGastro QR in Aktion
+                </div>
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-video-wrapper">
+                        <video controls muted playsinline>
+                            <source src="VID-20251120-WA0002.mp4" type="video/mp4" />
+                            Ihr Browser unterstützt das Video-Format nicht.
+                        </video>
+                    </div>
+                    <div class="video-caption" data-i18n="video-caption">
+                        Dieses Video zeigt eine echte digitale Speisekarte in einem Eiscafé – mit Tischnummer,
+                        Auswahl der Eissorten und WhatsApp-Bestellung.
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- Legal + Datenschutz + Kontakt -->
+        <section class="info-grid" id="legal">
+            <!-- Rechtliche Hinweise -->
+            <article class="info-card">
+                <h3 data-i18n="legal-title">
+                    Rechtliche Hinweise
+                </h3>
+                <p>
+                    <span class="legal-highlight" data-i18n="legal-highlight">
+                        Urheberrecht &amp; Nutzung:
+                    </span>
+                    <span data-i18n="legal-text-1">
+                        Diese Demo-Seite, das Konzept „SmartGastro QR“ sowie Struktur und Design der
+                        Bestelloberfläche sind urheberrechtlich geschützt. Eine gewerbliche Nutzung, Kopie oder
+                        Weitergabe des Quellcodes ist ohne schriftliche Zustimmung des Entwicklers nicht gestattet.
+                    </span>
+                </p>
+                <p data-i18n="legal-text-2">
+                    Interessierte Betriebe können eine eigene, angepasste Version mit Logo, Farben und Speisekarte
+                    lizenzieren. Für jedes Restaurant wird eine individuelle Instanz erstellt – keine
+                    „Copy-Paste-Lösung“.
+                </p>
+                <small data-i18n="legal-text-3">
+                    Hinweis: Diese Demo ersetzt keine individuelle Rechtsberatung. Für endgültige Verträge und
+                    AGB-Texte sollten Sie Ihren Steuerberater oder Rechtsanwalt einbeziehen.
+                </small>
+            </article>
+
+            <!-- Datenschutz -->
+            <article class="info-card" id="datenschutz">
+                <h3 data-i18n="privacy-title">
+                    Datenschutz / Privacy (Demo)
+                </h3>
+                <p data-i18n="privacy-text-1">
+                    In dieser öffentlichen Demo-Version werden keine Bestellungen gespeichert, keine Cookies zu
+                    Tracking-Zwecken gesetzt und keine personenbezogenen Daten automatisch ausgewertet. Das System
+                    dient ausschließlich zur Veranschaulichung.
+                </p>
+                <p data-i18n="privacy-text-2">
+                    In der echten Version für Ihr Restaurant können die Datenverarbeitung und Aufbewahrung
+                    an Ihre Kassensystem-, Finanzamt- und Datenschutz-Anforderungen angepasst werden.
+                    Typischerweise gelten die DSGVO, das BDSG und die jeweiligen Vorgaben Ihres Steuerberaters.
+                </p>
+                <small data-i18n="privacy-text-3">
+                    Auf Wunsch kann für jeden Betrieb eine individuelle Datenschutzerklärung und ein Impressum
+                    in der digitalen Speisekarte hinterlegt werden (mehrsprachig möglich).
+                </small>
+            </article>
+
+            <!-- Kontakt -->
+            <article class="info-card" id="kontakt">
+                <h3 data-i18n="contact-title">
+                    Kontakt &amp; Demo-Anfrage
+                </h3>
+                <div class="contact-lines">
+                    <p><strong>SmartGastro QR</strong></p>
+                    <p>Eiscafé Sanremo</p>
+                    <p>Fürst Richard Str. 1</p>
+                    <p>57319 Bad Berleburg</p>
+                    <p data-i18n="contact-phone">
+                        Telefon / WhatsApp: +49&nbsp;176&nbsp;7280&nbsp;9926
+                    </p>
+                    <p>
+                        E-Mail:
+                        <a href="mailto:paulo.sanremo@web.de">paulo.sanremo@web.de</a>
+                    </p>
+                </div>
+                <p data-i18n="contact-text-1">
+                    Sie möchten SmartGastro QR in Ihrem Eiscafé, Restaurant oder Café einsetzen? Schreiben Sie
+                    uns kurz, wie viele Tische und welche Speisekarte Sie haben – wir melden uns mit einem
+                    unverbindlichen Vorschlag.
+                </p>
+
+                <a class="whatsapp-btn"
+                   href="https://wa.me/4917672809926?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20SmartGastro%20QR.%20Bitte%20melden%20Sie%20sich%20bei%20mir."
+                   target="_blank" rel="noopener noreferrer">
+                    <span>💬</span>
+                    <span data-i18n="contact-whatsapp-btn">
+                        Anfrage per WhatsApp senden
+                    </span>
+                </a>
+            </article>
+        </section>
+
+        <footer>
+            <p>
+                &copy; 2025 SmartGastro QR – <span data-i18n="footer-rights">Alle Rechte vorbehalten.</span>
+            </p>
+            <p>
+                <a href="#legal" data-i18n="footer-links">
+                    Rechtliche Hinweise · Datenschutz · Kontakt
+                </a>
+            </p>
+        </footer>
+    </div>
+</main>
+
+<script>
+    const translations = {
+        de: {
+            "brand-title": "SmartGastro QR",
+            "brand-subtitle": "Digitale Bestellungen für Gastronomie – einfach per QR-Code am Tisch.",
+            "intro-title": "Was ist SmartGastro QR?",
+            "intro-text": "SmartGastro QR ist ein modernes, flexibles Bestellsystem für Gastronomie-Betriebe. Gäste scannen den QR-Code am Tisch, öffnen die digitale Speisekarte und schicken ihre Bestellung direkt an das Service-Team – ohne App, ohne Registrierung.",
+            "features-title": "Vorteile auf einen Blick:",
+            "features-1": "Funktioniert auf Handy, Tablet und PC",
+            "features-2": "Kein Login, keine App-Installation notwendig",
+            "features-3": "Ideal für Eiscafés, Restaurants, Bars und Cafés",
+            "features-4": "Schnellere Bedienung – weniger Wartezeiten",
+            "features-5": "Sorten, Sahne, Extras und Portionen frei wählbar",
+            "features-6": "Optional: Weiterleitung an WhatsApp oder Küchendrucker",
+            "chip-demo": "Diese Seite ist eine Demo – ideal zur Präsentation bei Kunden.",
+            "steps-title": "Wie funktioniert das System?",
+            "steps-1": "Gast scannt den QR-Code am Tisch mit der Handy-Kamera.",
+            "steps-2": "Die digitale Speisekarte öffnet sich im Browser.",
+            "steps-3": "Tischnummer wird eingetragen (Pflichtfeld).",
+            "steps-4": "Produkte und Optionen werden ausgewählt.",
+            "steps-5": "Bestellung wird z. B. per WhatsApp an Ihr Team gesendet.",
+            "video-title": "Demo-Video – SmartGastro QR in Aktion",
+            "video-caption": "Dieses Video zeigt eine echte digitale Speisekarte in einem Eiscafé – mit Tischnummer, Auswahl der Eissorten und WhatsApp-Bestellung.",
+            "legal-title": "Rechtliche Hinweise",
+            "legal-highlight": "Urheberrecht &amp; Nutzung:",
+            "legal-text-1": "Diese Demo-Seite, das Konzept „SmartGastro QR“ sowie Struktur und Design der Bestelloberfläche sind urheberrechtlich geschützt. Eine gewerbliche Nutzung, Kopie oder Weitergabe des Quellcodes ist ohne schriftliche Zustimmung des Entwicklers nicht gestattet.",
+            "legal-text-2": "Interessierte Betriebe können eine eigene, angepasste Version mit Logo, Farben und Speisekarte lizenzieren. Für jedes Restaurant wird eine individuelle Instanz erstellt – keine „Copy-Paste-Lösung“.",
+            "legal-text-3": "Hinweis: Diese Demo ersetzt keine individuelle Rechtsberatung. Für endgültige Verträge und AGB-Texte sollten Sie Ihren Steuerberater oder Rechtsanwalt einbeziehen.",
+            "privacy-title": "Datenschutz / Privacy (Demo)",
+            "privacy-text-1": "In dieser öffentlichen Demo-Version werden keine Bestellungen gespeichert, keine Cookies zu Tracking-Zwecken gesetzt und keine personenbezogenen Daten automatisch ausgewertet. Das System dient ausschließlich zur Veranschaulichung.",
+            "privacy-text-2": "In der echten Version für Ihr Restaurant können die Datenverarbeitung und Aufbewahrung an Ihre Kassensystem-, Finanzamt- und Datenschutz-Anforderungen angepasst werden. Typischerweise gelten die DSGVO, das BDSG und die jeweiligen Vorgaben Ihres Steuerberaters.",
+            "privacy-text-3": "Auf Wunsch kann für jeden Betrieb eine individuelle Datenschutzerklärung und ein Impressum in der digitalen Speisekarte hinterlegt werden (mehrsprachig möglich).",
+            "contact-title": "Kontakt &amp; Demo-Anfrage",
+            "contact-phone": "Telefon / WhatsApp: +49\u00a0176\u00a07280\u00a09926",
+            "contact-text-1": "Sie möchten SmartGastro QR in Ihrem Eiscafé, Restaurant oder Café einsetzen? Schreiben Sie uns kurz, wie viele Tische und welche Speisekarte Sie haben – wir melden uns mit einem unverbindlichen Vorschlag.",
+            "contact-whatsapp-btn": "Anfrage per WhatsApp senden",
+            "footer-rights": "Alle Rechte vorbehalten.",
+            "footer-links": "Rechtliche Hinweise · Datenschutz · Kontakt"
+        },
+        en: {
+            "brand-title": "SmartGastro QR",
+            "brand-subtitle": "Digital ordering for hospitality – simple via QR code at the table.",
+            "intro-title": "What is SmartGastro QR?",
+            "intro-text": "SmartGastro QR is a modern, flexible ordering system for cafés and restaurants. Guests scan the QR code at the table, open the digital menu and send their order directly to your service team – no app, no registration.",
+            "features-title": "Benefits at a glance:",
+            "features-1": "Works on smartphone, tablet and PC",
+            "features-2": "No login, no app installation required",
+            "features-3": "Ideal for ice cream parlours, restaurants, bars and cafés",
+            "features-4": "Faster service – shorter waiting times",
+            "features-5": "Flavours, cream, extras and sizes freely selectable",
+            "features-6": "Optional: forwarding to WhatsApp or kitchen printer",
+            "chip-demo": "This page is a demo – perfect to present the concept to customers.",
+            "steps-title": "How does the system work?",
+            "steps-1": "Guest scans the QR code on the table with the phone camera.",
+            "steps-2": "The digital menu opens in the browser.",
+            "steps-3": "Table number is entered (required field).",
+            "steps-4": "Products and options are selected.",
+            "steps-5": "The order is sent to your team, e.g. via WhatsApp.",
+            "video-title": "Demo video – SmartGastro QR in action",
+            "video-caption": "This video shows a real digital menu in an ice cream parlour – with table number, flavour selection and WhatsApp ordering.",
+            "legal-title": "Legal information",
+            "legal-highlight": "Copyright & usage:",
+            "legal-text-1": "This demo page, the concept “SmartGastro QR” and the structure and design of the ordering interface are protected by copyright. Commercial use, copying or distribution of the source code is not permitted without the written consent of the developer.",
+            "legal-text-2": "Interested businesses can license their own customised version with logo, colours and menu. Each restaurant receives an individual instance – not a simple copy-paste solution.",
+            "legal-text-3": "Note: This demo is not a substitute for individual legal advice. For final contracts and terms of service, please consult your tax advisor or lawyer.",
+            "privacy-title": "Data protection / Privacy (demo)",
+            "privacy-text-1": "In this public demo version no orders are stored, no tracking cookies are set and no personal data is automatically analysed. The system is for demonstration purposes only.",
+            "privacy-text-2": "In the real version for your business, data processing and retention can be adapted to your POS, tax office and data-protection requirements. Normally the GDPR and national laws apply.",
+            "privacy-text-3": "If desired, an individual privacy policy and imprint can be integrated into the digital menu for each venue (multi-language possible).",
+            "contact-title": "Contact & demo request",
+            "contact-phone": "Phone / WhatsApp: +49\u00a0176\u00a07280\u00a09926",
+            "contact-text-1": "Would you like to use SmartGastro QR in your café or restaurant? Send us a short message with the number of tables and your type of menu – we will reply with a non-binding proposal.",
+            "contact-whatsapp-btn": "Send request via WhatsApp",
+            "footer-rights": "All rights reserved.",
+            "footer-links": "Legal information · Privacy · Contact"
+        },
+        pt: {
+            "brand-title": "SmartGastro QR",
+            "brand-subtitle": "Pedidos digitais para restauração – simples com QR-Code na mesa.",
+            "intro-title": "O que é o SmartGastro QR?",
+            "intro-text": "O SmartGastro QR é um sistema moderno e flexível de pedidos para cafés e restaurantes. O cliente lê o código QR na mesa, abre o menu digital e envia o pedido diretamente para a equipa – sem app e sem registo.",
+            "features-title": "Vantagens principais:",
+            "features-1": "Funciona em telemóvel, tablet e PC",
+            "features-2": "Sem login e sem instalação de app",
+            "features-3": "Ideal para gelatarias, restaurantes, bares e cafés",
+            "features-4": "Serviço mais rápido – menos tempo de espera",
+            "features-5": "Sabores, natas, extras e tamanhos configuráveis",
+            "features-6": "Opcional: encaminhar para WhatsApp ou impressora de cozinha",
+            "chip-demo": "Esta página é apenas uma demo – perfeita para apresentar o conceito a clientes.",
+            "steps-title": "Como funciona o sistema?",
+            "steps-1": "O cliente lê o QR-Code na mesa com a câmara do telemóvel.",
+            "steps-2": "O menu digital abre no navegador.",
+            "steps-3": "O número da mesa é introduzido (campo obrigatório).",
+            "steps-4": "Os produtos e opções são escolhidos.",
+            "steps-5": "O pedido é enviado para a equipa, por exemplo via WhatsApp.",
+            "video-title": "Vídeo demo – SmartGastro QR em ação",
+            "video-caption": "Este vídeo mostra um menu digital real numa gelataria – com número de mesa, escolha de sabores e pedido via WhatsApp.",
+            "legal-title": "Informações legais",
+            "legal-highlight": "Direitos de autor & utilização:",
+            "legal-text-1": "Esta página de demonstração, o conceito \"SmartGastro QR\" e o design da interface de pedidos estão protegidos por direitos de autor. Não é permitida a utilização comercial, cópia ou partilha do código-fonte sem autorização escrita do desenvolvedor.",
+            "legal-text-2": "Os estabelecimentos interessados podem licenciar a sua própria versão personalizada com logótipo, cores e menu. Cada restaurante recebe uma instância individual – não é apenas copiar e colar.",
+            "legal-text-3": "Atenção: Esta demo não substitui aconselhamento jurídico. Para contratos e condições finais, contacte o seu contabilista ou advogado.",
+            "privacy-title": "Proteção de dados / Privacidade (demo)",
+            "privacy-text-1": "Nesta versão pública de demonstração não são guardados pedidos, não existem cookies de tracking e nenhum dado pessoal é analisado automaticamente. O sistema serve apenas para demonstração.",
+            "privacy-text-2": "Na versão real para o seu negócio, o tratamento e armazenamento de dados podem ser ajustados às exigências fiscais e de proteção de dados na Alemanha.",
+            "privacy-text-3": "Se desejar, para cada estabelecimento pode ser criado um texto próprio de proteção de dados e impressum (também em várias línguas).",
+            "contact-title": "Contacto & pedido de demonstração",
+            "contact-phone": "Telefone / WhatsApp: +49\u00a0176\u00a07280\u00a09926",
+            "contact-text-1": "Quer utilizar o SmartGastro QR na sua gelataria ou restaurante? Envie uma mensagem curta com o número de mesas e o tipo de menu – respondemos com uma proposta sem compromisso.",
+            "contact-whatsapp-btn": "Enviar pedido por WhatsApp",
+            "footer-rights": "Todos os direitos reservados.",
+            "footer-links": "Informações legais · Proteção de dados · Contacto"
+        },
+        it: {
+            "brand-title": "SmartGastro QR",
+            "brand-subtitle": "Ordini digitali per la ristorazione – semplici con QR-Code al tavolo.",
+            "intro-title": "Che cos'è SmartGastro QR?",
+            "intro-text": "SmartGastro QR è un sistema moderno e flessibile di ordinazioni per bar, ristoranti e gelaterie. L'ospite scansiona il codice QR sul tavolo, apre il menù digitale e invia l'ordine direttamente al personale – senza app e senza registrazione.",
+            "features-title": "Vantaggi principali:",
+            "features-1": "Funziona su smartphone, tablet e PC",
+            "features-2": "Nessun login, nessuna installazione di app",
+            "features-3": "Ideale per gelaterie, ristoranti, bar e caffè",
+            "features-4": "Servizio più veloce – meno attesa",
+            "features-5": "Gusti, panna, extra e porzioni liberamente selezionabili",
+            "features-6": "Opzionale: invio verso WhatsApp o stampante di cucina",
+            "chip-demo": "Questa pagina è una demo – perfetta per presentare il concetto ai clienti.",
+            "steps-title": "Come funziona il sistema?",
+            "steps-1": "L'ospite scansiona il QR-Code sul tavolo con la fotocamera del telefono.",
+            "steps-2": "Il menù digitale si apre nel browser.",
+            "steps-3": "Viene inserito il numero del tavolo (campo obbligatorio).",
+            "steps-4": "Si scelgono prodotti e opzioni.",
+            "steps-5": "L'ordine viene inviato al team, per esempio via WhatsApp.",
+            "video-title": "Video demo – SmartGastro QR in azione",
+            "video-caption": "Questo video mostra un vero menù digitale in una gelateria – con numero del tavolo, scelta dei gusti e ordine via WhatsApp.",
+            "legal-title": "Note legali",
+            "legal-highlight": "Copyright & utilizzo:",
+            "legal-text-1": "Questa pagina demo, il concetto \"SmartGastro QR\" e il design dell'interfaccia sono protetti da copyright. Non è consentito l'uso commerciale, la copia o la distribuzione del codice sorgente senza autorizzazione scritta.",
+            "legal-text-2": "I locali interessati possono ottenere una versione personalizzata con logo, colori e menù. Ogni ristorante riceve un'istanza individuale – non è un semplice copia-incolla.",
+            "legal-text-3": "Nota: questa demo non sostituisce una consulenza legale. Per contratti e condizioni finali rivolgetevi al vostro consulente fiscale o avvocato.",
+            "privacy-title": "Protezione dati / Privacy (demo)",
+            "privacy-text-1": "In questa versione demo pubblica non vengono salvati ordini, non vengono impostati cookie di tracciamento e nessun dato personale viene analizzato automaticamente. Il sistema serve solo come esempio.",
+            "privacy-text-2": "Nella versione reale per il vostro locale, il trattamento dei dati può essere adattato alle normative vigenti.",
+            "privacy-text-3": "Su richiesta possono essere creati testi personalizzati di privacy e impressum (anche multilingue).",
+            "contact-title": "Contatto & richiesta demo",
+            "contact-phone": "Telefono / WhatsApp: +49\u00a0176\u00a07280\u00a09926",
+            "contact-text-1": "Volete usare SmartGastro QR nella vostra gelateria o ristorante? Inviate un breve messaggio con il numero di tavoli e il tipo di menù – vi risponderemo con una proposta senza impegno.",
+            "contact-whatsapp-btn": "Invia richiesta via WhatsApp",
+            "footer-rights": "Tutti i diritti riservati.",
+            "footer-links": "Note legali · Privacy · Contatto"
+        },
+        es: {
+            "brand-title": "SmartGastro QR",
+            "brand-subtitle": "Pedidos digitales para hostelería – sencillo con código QR en la mesa.",
+            "intro-title": "¿Qué es SmartGastro QR?",
+            "intro-text": "SmartGastro QR es un sistema moderno y flexible de pedidos para bares y restaurantes. El cliente escanea el código QR en la mesa, abre la carta digital y envía su pedido directamente al equipo de servicio – sin app y sin registro.",
+            "features-title": "Ventajas principales:",
+            "features-1": "Funciona en móvil, tablet y PC",
+            "features-2": "Sin inicio de sesión ni instalación de app",
+            "features-3": "Ideal para heladerías, restaurantes, bares y cafés",
+            "features-4": "Servicio más rápido – menos tiempo de espera",
+            "features-5": "Sabores, nata, extras y tamaños configurables",
+            "features-6": "Opcional: envío por WhatsApp o impresora de cocina",
+            "chip-demo": "Esta página es una demo – perfecta para presentar el concepto a clientes.",
+            "steps-title": "¿Cómo funciona el sistema?",
+            "steps-1": "El cliente escanea el código QR de la mesa con la cámara del móvil.",
+            "steps-2": "Se abre la carta digital en el navegador.",
+            "steps-3": "Se introduce el número de mesa (campo obligatorio).",
+            "steps-4": "Se eligen productos y opciones.",
+            "steps-5": "El pedido se envía al equipo, por ejemplo vía WhatsApp.",
+            "video-title": "Vídeo demo – SmartGastro QR en acción",
+            "video-caption": "Este vídeo muestra una carta digital real en una heladería – con número de mesa, elección de sabores y pedido por WhatsApp.",
+            "legal-title": "Información legal",
+            "legal-highlight": "Derechos de autor y uso:",
+            "legal-text-1": "Esta página de demostración, el concepto \"SmartGastro QR\" y el diseño de la interfaz están protegidos por derechos de autor. No se permite el uso comercial, copia o distribución del código fuente sin autorización escrita.",
+            "legal-text-2": "Los negocios interesados pueden obtener una versión personalizada con logotipo, colores y carta. Cada local recibe una instancia individual – no es solo copiar y pegar.",
+            "legal-text-3": "Aviso: esta demo no sustituye un asesoramiento jurídico profesional. Para contratos y condiciones finales consulte a su asesor o abogado.",
+            "privacy-title": "Protección de datos / Privacidad (demo)",
+            "privacy-text-1": "En esta versión pública de demostración no se guardan pedidos, no se usan cookies de seguimiento y no se analizan automáticamente datos personales. El sistema es solo para demostración.",
+            "privacy-text-2": "En la versión real para su negocio, el tratamiento de datos se puede adaptar a la normativa aplicable.",
+            "privacy-text-3": "Si lo desea, se pueden crear textos personalizados de privacidad e información legal (también en varios idiomas).",
+            "contact-title": "Contacto y solicitud de demo",
+            "contact-phone": "Teléfono / WhatsApp: +49\u00a0176\u00a07280\u00a09926",
+            "contact-text-1": "¿Quiere usar SmartGastro QR en su heladería o restaurante? Envíenos un mensaje corto con el número de mesas y el tipo de carta – le responderemos con una propuesta sin compromiso.",
+            "contact-whatsapp-btn": "Enviar solicitud por WhatsApp",
+            "footer-rights": "Todos los derechos reservados.",
+            "footer-links": "Información legal · Privacidad · Contacto"
+        },
+        fr: {
+            "brand-title": "SmartGastro QR",
+            "brand-subtitle": "Commandes numériques pour la restauration – simplement avec QR-Code sur la table.",
+            "intro-title": "Qu'est-ce que SmartGastro QR ?",
+            "intro-text": "SmartGastro QR est un système moderne et flexible de commande pour cafés et restaurants. Le client scanne le QR-Code sur la table, ouvre le menu digital et envoie sa commande directement à l'équipe de service – sans application et sans inscription.",
+            "features-title": "Avantages principaux :",
+            "features-1": "Fonctionne sur smartphone, tablette et PC",
+            "features-2": "Aucune connexion ni installation d'application",
+            "features-3": "Idéal pour glaciers, restaurants, bars et cafés",
+            "features-4": "Service plus rapide – moins d'attente",
+            "features-5": "Parfums, crème, extras et tailles configurables",
+            "features-6": "Option : envoi vers WhatsApp ou imprimante de cuisine",
+            "chip-demo": "Cette page est une démo – parfaite pour présenter le concept aux clients.",
+            "steps-title": "Comment fonctionne le système ?",
+            "steps-1": "Le client scanne le QR-Code sur la table avec la caméra du téléphone.",
+            "steps-2": "Le menu digital s'ouvre dans le navigateur.",
+            "steps-3": "Le numéro de table est saisi (champ obligatoire).",
+            "steps-4": "Les produits et options sont sélectionnés.",
+            "steps-5": "La commande est envoyée à l'équipe, par exemple via WhatsApp.",
+            "video-title": "Vidéo de démonstration – SmartGastro QR en action",
+            "video-caption": "Cette vidéo montre un vrai menu digital dans un glacier – avec numéro de table, choix des parfums et commande via WhatsApp.",
+            "legal-title": "Informations légales",
+            "legal-highlight": "Droits d'auteur & utilisation :",
+            "legal-text-1": "Cette page de démonstration, le concept \"SmartGastro QR\" et le design de l'interface sont protégés par le droit d'auteur. L'utilisation commerciale, la copie ou la distribution du code source ne sont pas autorisées sans accord écrit.",
+            "legal-text-2": "Les établissements intéressés peuvent obtenir une version personnalisée avec logo, couleurs et carte. Chaque restaurant reçoit une instance individuelle – ce n'est pas un simple copier-coller.",
+            "legal-text-3": "Remarque : cette démo ne remplace pas un conseil juridique. Pour les contrats et conditions définitifs, veuillez consulter votre conseiller ou avocat.",
+            "privacy-title": "Protection des données / Confidentialité (démo)",
+            "privacy-text-1": "Dans cette version publique de démonstration, aucune commande n'est enregistrée, aucun cookie de suivi n'est utilisé et aucune donnée personnelle n'est analysée automatiquement. Le système sert uniquement d'exemple.",
+            "privacy-text-2": "Dans la version réelle pour votre établissement, le traitement des données peut être adapté à la réglementation en vigueur.",
+            "privacy-text-3": "Sur demande, des textes personnalisés de confidentialité et mentions légales peuvent être ajoutés (également en plusieurs langues).",
+            "contact-title": "Contact & demande de démo",
+            "contact-phone": "Téléphone / WhatsApp : +49\u00a0176\u00a07280\u00a09926",
+            "contact-text-1": "Vous souhaitez utiliser SmartGastro QR dans votre glacier ou restaurant ? Envoyez-nous un court message avec le nombre de tables et le type de carte – nous vous répondrons avec une proposition sans engagement.",
+            "contact-whatsapp-btn": "Envoyer la demande via WhatsApp",
+            "footer-rights": "Tous droits réservés.",
+            "footer-links": "Informations légales · Confidentialité · Contact"
+        }
+    };
+
+    function setLanguage(lang) {
+        const dict = translations[lang] || translations.de;
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+            const key = el.getAttribute("data-i18n");
+            if (dict[key]) {
+                el.innerHTML = dict[key];
+            }
+        });
+        document.querySelectorAll(".lang-btn").forEach((btn) => {
+            btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+        });
+        document.documentElement.lang = lang;
     }
-    const table = document.getElementById('demoTable').value || 'Demo-Tisch';
-    let text = 'Demo-Bestellung SmartGastro QR%0A';
-    text += 'Tisch: ' + table + '%0A%0A';
 
-    let total = 0;
-    order.forEach(item => {
-      total += item.total;
-      text += `${item.qty}x ${item.name} - ${formatPrice(item.total)}`
-        + (item.details ? ` (${item.details})` : '') + '%0A';
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const lang = btn.getAttribute("data-lang");
+            setLanguage(lang);
+        });
     });
-    text += '%0A Gesamt (Demo): ' + formatPrice(total);
 
-    const url = 'https://wa.me/4917672809926?text=' + text;
-    window.open(url, '_blank');
-  });
-
-  document.getElementById('btnDemoPrint').addEventListener('click', () => {
-    if (!order.length) {
-      alert('Bitte zuerst einige Demo-Artikel hinzufügen.');
-      return;
-    }
-    let text = '*** Küchendrucker-Demo ***\n';
-    order.forEach(item => {
-      text += `${item.qty}x ${item.name}`;
-      if (item.details) text += ` (${item.details})`;
-      text += '\n';
-    });
-    alert('In der Vollversion würde jetzt ein Bon an den Küchendrucker gesendet werden.\n\n' +
-          'Demo-Ausgabe:\n\n' + text);
-    console.log(text);
-  });
-
-  buildDemoCards();
-
-  /* KONTAKT -> WhatsApp */
-  document.getElementById('btnContactWhatsApp').addEventListener('click', () => {
-    const name = document.getElementById('cfName').value.trim();
-    const ort  = document.getElementById('cfOrt').value.trim();
-    const tel  = document.getElementById('cfTel').value.trim();
-    const msg  = document.getElementById('cfMsg').value.trim();
-
-    if (!name || !tel || !msg) {
-      alert('Bitte Name/Firma, Telefon/WhatsApp und eine Nachricht ausfüllen.');
-      return;
-    }
-
-    let text = 'Anfrage zu SmartGastro QR%0A%0A';
-    text += 'Name / Firma: ' + name + '%0A';
-    if (ort) text += 'Ort: ' + ort + '%0A';
-    text += 'Telefon / WhatsApp: ' + tel + '%0A%0A';
-    text += 'Nachricht:%0A' + msg;
-
-    window.open('https://wa.me/4917672809926?text=' + text, '_blank');
-  });
-
-  /* FOOTER LANGUAGE SWITCH (legal & privacy) */
-  document.querySelectorAll('.legal-lang-select').forEach(sel => {
-    sel.addEventListener('change', () => {
-      const target = sel.dataset.target; // "legal" oder "privacy"
-      const value  = sel.value;
-
-      document.querySelectorAll(`.legal-text[data-group="${target}"]`).forEach(div => {
-        div.hidden = div.dataset.lang !== value;
-      });
-    });
-  });
-
-  // Standard: Deutsch aktiv (já está nos dados por omissão)
+    // init
+    setLanguage("de");
 </script>
 </body>
 </html>
