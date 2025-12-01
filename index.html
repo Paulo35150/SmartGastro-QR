@@ -379,7 +379,6 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            text-decoration: none;
         }
 
         .btn-whatsapp {
@@ -499,64 +498,33 @@
             <!-- ================= LICENÇA SANREMO SOFTWARE ================= -->
             <div id="smartgastro-license-box" style="
                 max-width: 720px;
-                margin: 26px auto 20px;
+                margin: 40px auto 30px;
                 padding: 18px 20px;
                 border-radius: 12px;
                 border: 1px solid #d1d5db;
                 background: #f9fafb;
                 font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             ">
-                <h2 style="margin: 0 0 8px; font-size: 1.4rem; color:#111827;"
-                    data-i18n-key="licenseTitle">
-                    Lizenz / Licença Sanremo Software – 2 Apps incluídas
+                <h2 style="margin: 0 0 8px; font-size: 1.4rem; color:#111827;">
+                    Lizenz / Licença Sanremo Software – 2 Apps inklusive
                 </h2>
-
-                <p style="margin: 0 0 6px; font-size: 0.9rem; color:#4b5563;"
-                   data-i18n-key="licenseIntro">
-                    Inclui / Enthält:
+                <p style="margin: 0 0 10px; font-size: 0.9rem; color:#4b5563;">
+                    Enthält:
+                    <br>• Bestellsystem <strong>SmartGastro QR</strong> (digitale Speisekarte mit QR-Code auf jedem Tisch)
+                    <br>• <strong>Mitarbeiter-Portal / Stempeluhr</strong> (Ein-/Aus-Stempel, Dienstpläne, Monatsübersicht)
+                    <br>Sichere Lizenz für 1 Betrieb / empresa. Bezahlung über PayPal.
                 </p>
-                <ul style="margin:0 0 10px 18px; padding:0; font-size:0.9rem; color:#4b5563;">
-                    <li data-i18n-key="licenseItem1">
-                        Bestellsystem SmartGastro QR (digitale Speisekarte mit QR-Code auf jedem Tisch)
-                    </li>
-                    <li data-i18n-key="licenseItem2">
-                        Mitarbeiter-Portal / Stempeluhr (Ein-/Aus-Stempel, Dienstpläne, Monatsübersicht)
-                    </li>
-                    <li data-i18n-key="licenseItem3">
-                        Lizenz für 1 Betrieb / empresa. Sicheres Bezahlen über PayPal.
-                    </li>
-                </ul>
 
                 <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:6px;">
                     <span style="font-size:2rem;font-weight:700;color:#111827;">99&nbsp;€</span>
-                    <span style="font-size:0.9rem;color:#6b7280;" data-i18n-key="licensePerYear">
-                        / ano · jährlich
-                    </span>
+                    <span style="font-size:0.9rem;color:#6b7280;">/ Jahr · ano</span>
                 </div>
-
-                <p style="margin:0 0 8px;font-size:0.8rem;color:#6b7280;"
-                   data-i18n-key="licenseSubNote">
-                    Subscrição anual via PayPal. Podes cancelar em qualquer momento diretamente na tua conta PayPal.
+                <p style="margin:0 0 12px;font-size:0.8rem;color:#6b7280;">
+                    Jährliches Abo über PayPal. Das Abo kann jederzeit im eigenen PayPal-Konto gekündigt werden.
                 </p>
 
-                <!-- Botão PayPal -->
+                <!-- BOTÃO PAYPAL -->
                 <div id="paypal-button-container-P-5WA45756CL7747454NEXAVJA"></div>
-
-                <!-- Links para as duas demos -->
-                <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;">
-                    <a class="btn btn-outline"
-                       href="https://paulo35150.github.io/Eis-Menu/"
-                       target="_blank"
-                       data-i18n-key="licenseDemoMenu">
-                        Eis- &amp; Gastro-Bestellsystem – Demo öffnen
-                    </a>
-                    <a class="btn btn-outline"
-                       href="https://paulo35150.github.io/Sanremo-mitarbeiter/"
-                       target="_blank"
-                       data-i18n-key="licenseDemoStaff">
-                        Mitarbeiter-Portal / Stempeluhr – Demo öffnen
-                    </a>
-                </div>
 
                 <!-- Mensagem de sucesso -->
                 <div id="success-box" style="
@@ -571,8 +539,7 @@
                 ">
                     👍 Pagamento concluído! A tua subscrição foi criada com sucesso.
                     ID da subscrição: <strong id="sub-id"></strong><br>
-                    Envia o comprovativo e este ID para
-                    <a href="mailto:paulo.sanremo@web.de">paulo.sanremo@web.de</a>
+                    Envia o comprovativo e este ID para <a href="mailto:paulo.sanremo@web.de">paulo.sanremo@web.de</a>
                     para receberes o acesso ao software.
                 </div>
 
@@ -590,9 +557,8 @@
                     ⚠ Ocorreu um erro ao criar a subscrição PayPal. Tenta novamente ou contacta-me por e-mail / WhatsApp.
                 </div>
 
-                <p style="margin-top:12px;font-size:0.8rem;color:#6b7280;"
-                   data-i18n-key="licenseSupport">
-                    Suporte / Support: paulo.sanremo@web.de · WhatsApp: 0176 72809926
+                <p style="margin-top:12px;font-size:0.8rem;color:#6b7280;">
+                    Support / Suporte: <strong>paulo.sanremo@web.de</strong> · WhatsApp: <strong>0176 72809926</strong>
                 </p>
             </div>
             <!-- ================= FIM LICENÇA ================= -->
@@ -705,6 +671,14 @@
                 </li>
             </ul>
 
+            <!-- NOVO AVISO LEGAL SOBRE SOFTWARE INTERNA -->
+            <h3 style="margin-top:14px;" data-i18n-key="legalExtraTitle">
+                Haftungsausschluss – interne Software, kein Kassensystem
+            </h3>
+            <p data-i18n-key="legalExtraText">
+                SmartGastro&nbsp;QR und das Mitarbeiter-Portal sind interne Organisations-Tools und kein Kassensystem im Sinne von GoBD oder KassenSichV. Alle Umsätze müssen vollständig und korrekt in Ihrer offiziellen Registrierkasse oder im Kassenbuch erfasst werden. Wir treten ausschließlich als Software-Entwickler auf; für Buchführung, Steuern und rechtliche Pflichten ist allein der Betreiber verantwortlich.
+            </p>
+
             <h3 style="margin-top:16px;" id="privacy" data-i18n-key="privacyTitle">
                 Datenschutz / Privacy (Demo)
             </h3>
@@ -777,6 +751,7 @@
     </footer>
 </div>
 
+<!-- SCRIPT PRINCIPAL (TRADUÇÕES + CONTACTO) -->
 <script>
     // Traduções básicas
     const i18n = {
@@ -786,16 +761,6 @@
             whatTitle: "Was ist SmartGastro QR?",
             whatIntro: "SmartGastro QR ist ein flexibles, modernes Bestellsystem für Gastronomie-Betriebe. Gäste scannen den QR-Code am Tisch, öffnen die digitale Speisekarte und schicken ihre Bestellung direkt an das Service-Team – ohne App, ohne Registrierung.",
             demoBadge: "Diese Seite ist eine Demo – ideal zur Präsentation bei Interessenten.",
-            licenseTitle: "Lizenz / Licença Sanremo Software – 2 Apps inklusive",
-            licenseIntro: "Enthält:",
-            licenseItem1: "Bestellsystem SmartGastro QR (digitale Speisekarte mit QR-Code auf jedem Tisch).",
-            licenseItem2: "Mitarbeiter-Portal / Stempeluhr (Ein-/Aus-Stempel, Dienstpläne, Monatsübersicht).",
-            licenseItem3: "Lizenz für 1 Betrieb. Sicheres Bezahlen über PayPal.",
-            licensePerYear: "/ Jahr · jährlich",
-            licenseSubNote: "Jährliches Abo über PayPal. Das Abo kann jederzeit direkt im eigenen PayPal-Konto gekündigt werden.",
-            licenseDemoMenu: "Bestellsystem-Demo öffnen",
-            licenseDemoStaff: "Mitarbeiter-Portal-Demo öffnen",
-            licenseSupport: "Support: paulo.sanremo@web.de · WhatsApp: 0176 72809926",
             benefitsTitle: "Vorteile auf einen Blick:",
             benefit1: "Funktioniert auf Handy, Tablet und PC.",
             benefit2: "Kein Login, keine App-Installation notwendig.",
@@ -818,6 +783,8 @@
             legalPoint1: "Jede Bestellung kann – je nach System – direkt in die Kasse übernommen oder manuell boniert werden.",
             legalPoint2: "WhatsApp-Bestellungen dienen nur als interne Kommunikationshilfe und ersetzen nicht die Kassenbuchung.",
             legalPoint3: "Für die endgültige Umsetzung empfiehlt sich die Abstimmung mit Steuerberater und Kassenanbieter.",
+            legalExtraTitle: "Haftungsausschluss – interne Software, kein Kassensystem",
+            legalExtraText: "SmartGastro QR und das Mitarbeiter-Portal sind interne Organisations-Tools und kein Kassensystem im Sinne von GoBD oder KassenSichV. Alle Umsätze müssen vollständig und korrekt in Ihrer offiziellen Registrierkasse oder im Kassenbuch erfasst werden. Wir treten ausschließlich als Software-Entwickler auf; für Buchführung, Steuern und rechtliche Pflichten ist allein der Betreiber verantwortlich.",
             privacyTitle: "Datenschutz / Privacy (Demo)",
             privacyText1: "In dieser öffentlichen Demo werden keine personenbezogenen Daten dauerhaft gespeichert. Alle Eingaben dienen ausschließlich zur Veranschaulichung des Systems.",
             privacyText2: "In einer echten Installation wird SmartGastro QR an Ihre Datenschutzerklärung angepasst (u. a. Verantwortlicher, Zweck der Verarbeitung, Speicherdauer, Rechte der Gäste).",
@@ -841,16 +808,6 @@
             whatTitle: "What is SmartGastro QR?",
             whatIntro: "SmartGastro QR is a modern ordering system for cafés and restaurants. Guests scan the QR code on the table, open the digital menu and send their order directly to your team – no app, no registration.",
             demoBadge: "This page is a demo – perfect for presentations to clients.",
-            licenseTitle: "Sanremo Software licence – 2 apps included",
-            licenseIntro: "Includes:",
-            licenseItem1: "Ordering system SmartGastro QR (digital menu with QR code on every table).",
-            licenseItem2: "Staff portal / time clock (clock-in/out, duty rosters, monthly overview).",
-            licenseItem3: "Licence for one business. Secure payment via PayPal.",
-            licensePerYear: "/ year · yearly",
-            licenseSubNote: "Yearly subscription via PayPal. You can cancel anytime in your PayPal account.",
-            licenseDemoMenu: "Open ordering system demo",
-            licenseDemoStaff: "Open staff portal demo",
-            licenseSupport: "Support: paulo.sanremo@web.de · WhatsApp: 0176 72809926",
             benefitsTitle: "Main advantages:",
             benefit1: "Works on smartphone, tablet and PC.",
             benefit2: "No login, no app installation required.",
@@ -873,6 +830,8 @@
             legalPoint1: "Each order can be transferred into the POS system or entered manually.",
             legalPoint2: "WhatsApp orders are only used as internal communication, not as a replacement for proper booking.",
             legalPoint3: "For final implementation, please coordinate with your tax advisor and POS provider.",
+            legalExtraTitle: "Disclaimer – internal tool, not a POS system",
+            legalExtraText: "SmartGastro QR and the Employee Portal are internal management tools and not a POS system according to GoBD or KassenSichV. All sales must be recorded completely and correctly in your official POS or cash register. We act only as software developers; the operator is solely responsible for bookkeeping, taxes and legal obligations.",
             privacyTitle: "Data protection / privacy (demo)",
             privacyText1: "In this public demo no personal data is stored permanently. All inputs are only used to illustrate the system.",
             privacyText2: "In a real installation, SmartGastro QR will be integrated into your own privacy policy.",
@@ -896,16 +855,6 @@
             whatTitle: "O que é o SmartGastro QR?",
             whatIntro: "O SmartGastro QR é um sistema moderno e flexível de pedidos para cafés e restaurantes. O cliente lê o código QR na mesa, abre o menu digital e envia o pedido diretamente para a equipa – sem app e sem registo.",
             demoBadge: "Esta página é apenas uma demo – ideal para apresentar o conceito a clientes.",
-            licenseTitle: "Licença Sanremo Software – 2 apps incluídas",
-            licenseIntro: "Inclui:",
-            licenseItem1: "Sistema de pedidos SmartGastro QR (menu digital com QR-Code em cada mesa).",
-            licenseItem2: "Portal de funcionários / relógio de ponto (entradas/saídas, turnos, resumo mensal).",
-            licenseItem3: "Licença para 1 empresa. Pagamento seguro através de PayPal.",
-            licensePerYear: "/ ano · anual",
-            licenseSubNote: "Subscrição anual via PayPal. Podes cancelar em qualquer momento diretamente na tua conta PayPal.",
-            licenseDemoMenu: "Abrir demo do sistema de pedidos",
-            licenseDemoStaff: "Abrir demo do portal de funcionários",
-            licenseSupport: "Suporte: paulo.sanremo@web.de · WhatsApp: 0176 72809926",
             benefitsTitle: "Vantagens principais:",
             benefit1: "Funciona em telemóvel, tablet e PC.",
             benefit2: "Sem login, sem instalação de app.",
@@ -928,6 +877,8 @@
             legalPoint1: "Cada pedido pode ser integrado na caixa ou registado manualmente.",
             legalPoint2: "Pedidos via WhatsApp servem apenas como apoio interno, não substituem o registo na caixa.",
             legalPoint3: "Para a implementação final recomenda-se falar com o contabilista e o fornecedor da caixa.",
+            legalExtraTitle: "Aviso legal – ferramenta interna, não é sistema de caixa",
+            legalExtraText: "O SmartGastro QR e o Portal de Funcionários são ferramentas internas de organização e não constituem um sistema de caixa registadora conforme GoBD / KassenSichV. Todas as vendas devem ser registadas de forma completa e correta na caixa oficial ou no livro de caixa. Somos apenas programadores de software; a responsabilidade por contabilidade, impostos e obrigações legais é exclusivamente do operador.",
             privacyTitle: "Proteção de dados / privacidade (demo)",
             privacyText1: "Nesta demo pública não são guardados dados pessoais de forma permanente. Todas as entradas servem apenas para demonstrar o sistema.",
             privacyText2: "Numa instalação real, o SmartGastro QR será adaptado à sua própria política de privacidade.",
@@ -951,16 +902,6 @@
             whatTitle: "Che cos’è SmartGastro QR?",
             whatIntro: "SmartGastro QR è un sistema moderno di ordinazione per bar e ristoranti. Il cliente scansiona il QR-Code sul tavolo, apre il menù digitale e invia l’ordine direttamente allo staff – senza app e senza registrazione.",
             demoBadge: "Questa pagina è una demo – perfetta per presentare il sistema ai clienti.",
-            licenseTitle: "Licenza Sanremo Software – 2 app incluse",
-            licenseIntro: "Include:",
-            licenseItem1: "Sistema di ordinazione SmartGastro QR (menù digitale con QR-Code su ogni tavolo).",
-            licenseItem2: "Portale dipendenti / timbratura (entrata/uscita, turni, riepilogo mensile).",
-            licenseItem3: "Licenza per 1 locale. Pagamento sicuro con PayPal.",
-            licensePerYear: "/ anno · annuale",
-            licenseSubNote: "Abbonamento annuale tramite PayPal. Puoi annullare in qualsiasi momento dal tuo conto PayPal.",
-            licenseDemoMenu: "Apri demo sistema ordini",
-            licenseDemoStaff: "Apri demo portale dipendenti",
-            licenseSupport: "Supporto: paulo.sanremo@web.de · WhatsApp: 0176 72809926",
             benefitsTitle: "Vantaggi principali:",
             benefit1: "Funziona su smartphone, tablet e PC.",
             benefit2: "Nessun login, nessuna app da installare.",
@@ -983,6 +924,8 @@
             legalPoint1: "Ogni ordine può essere trasferito nel sistema cassa o inserito manualmente.",
             legalPoint2: "Gli ordini via WhatsApp servono solo come supporto interno, non sostituiscono la registrazione fiscale.",
             legalPoint3: "Per l’implementazione finale è consigliata la consulenza del commercialista e del fornitore della cassa.",
+            legalExtraTitle: "Esclusione di responsabilità – strumento interno, non registratore di cassa",
+            legalExtraText: "SmartGastro QR e il Portale Dipendenti sono strumenti di organizzazione interna e non un registratore di cassa ai sensi di GoBD / KassenSichV. Tutte le vendite devono essere registrate in modo completo e corretto nel registratore ufficiale o nei registri contabili. Siamo solo sviluppatori software; il gestore è l’unico responsabile di contabilità, tasse e obblighi legali.",
             privacyTitle: "Protezione dati / privacy (demo)",
             privacyText1: "In questa demo pubblica non vengono salvati in modo permanente dati personali.",
             privacyText2: "In un’installazione reale SmartGastro QR verrà integrato nella vostra informativa sulla privacy.",
@@ -1006,16 +949,6 @@
             whatTitle: "¿Qué es SmartGastro QR?",
             whatIntro: "SmartGastro QR es un sistema moderno de pedidos para bares y restaurantes. El cliente escanea el código QR en la mesa, abre el menú digital y envía el pedido directamente al equipo – sin app y sin registro.",
             demoBadge: "Esta página es solo una demo – perfecta para presentar el concepto a clientes.",
-            licenseTitle: "Licencia Sanremo Software – 2 apps incluidas",
-            licenseIntro: "Incluye:",
-            licenseItem1: "Sistema de pedidos SmartGastro QR (menú digital con código QR en cada mesa).",
-            licenseItem2: "Portal de empleados / reloj de fichar (entradas/salidas, turnos, resumen mensual).",
-            licenseItem3: "Licencia para 1 negocio. Pago seguro a través de PayPal.",
-            licensePerYear: "/ año · anual",
-            licenseSubNote: "Suscripción anual a través de PayPal. Se puede cancelar en cualquier momento desde su cuenta de PayPal.",
-            licenseDemoMenu: "Abrir demo del sistema de pedidos",
-            licenseDemoStaff: "Abrir demo del portal de empleados",
-            licenseSupport: "Soporte: paulo.sanremo@web.de · WhatsApp: 0176 72809926",
             benefitsTitle: "Ventajas principales:",
             benefit1: "Funciona en móvil, tablet y PC.",
             benefit2: "Sin inicio de sesión, sin instalar app.",
@@ -1038,6 +971,8 @@
             legalPoint1: "Cada pedido puede integrarse en la caja o registrarse manualmente.",
             legalPoint2: "Los pedidos por WhatsApp sirven solo como ayuda interna, no sustituyen el registro fiscal.",
             legalPoint3: "Para la implantación final se recomienda hablar con el asesor fiscal y el proveedor de la caja.",
+            legalExtraTitle: "Aviso legal – herramienta interna, no es sistema de caja",
+            legalExtraText: "SmartGastro QR y el Portal de Empleados son herramientas internas de gestión y no un sistema de caja conforme a GoBD / KassenSichV. Todas las ventas deben registrarse completa y correctamente en la caja oficial o en los libros contables. Somos solo desarrolladores de software; la responsabilidad de la contabilidad, impuestos y obligaciones legales recae únicamente en el operador.",
             privacyTitle: "Protección de datos / privacidad (demo)",
             privacyText1: "En esta demo pública no se guardan datos personales de forma permanente.",
             privacyText2: "En una instalación real, SmartGastro QR se integrará en su propia política de privacidad.",
@@ -1061,16 +996,6 @@
             whatTitle: "Qu’est-ce que SmartGastro QR ?",
             whatIntro: "SmartGastro QR est un système moderne de commande pour cafés et restaurants. Le client scanne le QR-Code sur la table, ouvre le menu numérique et envoie sa commande directement à l’équipe – sans application ni inscription.",
             demoBadge: "Cette page est une démo – parfaite pour présenter le concept aux clients.",
-            licenseTitle: "Licence Sanremo Software – 2 applications incluses",
-            licenseIntro: "Comprend :",
-            licenseItem1: "Système de commande SmartGastro QR (menu numérique avec QR-Code sur chaque table).",
-            licenseItem2: "Portail employés / pointeuse (entrées/sorties, plannings, récapitulatif mensuel).",
-            licenseItem3: "Licence pour un établissement. Paiement sécurisé via PayPal.",
-            licensePerYear: "/ an · annuel",
-            licenseSubNote: "Abonnement annuel via PayPal. Vous pouvez l’annuler à tout moment depuis votre compte PayPal.",
-            licenseDemoMenu: "Ouvrir la démo du système de commande",
-            licenseDemoStaff: "Ouvrir la démo du portail employés",
-            licenseSupport: "Support : paulo.sanremo@web.de · WhatsApp : 0176 72809926",
             benefitsTitle: "Avantages principaux :",
             benefit1: "Fonctionne sur smartphone, tablette et PC.",
             benefit2: "Aucun login, aucune application à installer.",
@@ -1093,6 +1018,8 @@
             legalPoint1: "Chaque commande peut être transférée dans la caisse ou saisie manuellement.",
             legalPoint2: "Les commandes via WhatsApp servent seulement d’aide interne et ne remplacent pas l’enregistrement comptable.",
             legalPoint3: "Pour la mise en place finale, il est recommandé de consulter votre expert-comptable et votre fournisseur de caisse.",
+            legalExtraTitle: "Clause de non-responsabilité – outil interne, pas un système de caisse",
+            legalExtraText: "SmartGastro QR et le Portail Employés sont des outils d’organisation interne et ne constituent pas un système de caisse conforme GoBD / KassenSichV. Toutes les ventes doivent être enregistrées de manière complète et correcte dans la caisse officielle ou la comptabilité. Nous sommes uniquement développeurs du logiciel ; la responsabilité de la tenue des livres, des impôts et des obligations légales incombe exclusivement à l’exploitant.",
             privacyTitle: "Protection des données / vie privée (démo)",
             privacyText1: "Dans cette démo publique, aucune donnée personnelle n’est conservée de manière permanente.",
             privacyText2: "Dans une installation réelle, SmartGastro QR sera intégré à votre propre politique de confidentialité.",
@@ -1121,7 +1048,6 @@
             if (dict[key]) el.textContent = dict[key];
         });
 
-        // placeholders
         document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
             const key = el.getAttribute("data-i18n-placeholder");
             if (dict[key]) el.setAttribute("placeholder", dict[key]);
@@ -1178,41 +1104,37 @@
     }
 </script>
 
-<!-- SDK PayPal + botão de subscrição -->
+<!-- SDK PAYPAL -->
 <script src="https://www.paypal.com/sdk/js?client-id=AXNSOvcYdaokv8QFi8lhyhfgsMwzgx5u5NG1yjLW4t7jNQHuyJ0I9ZlM6M_qQ9ptxRzgaw56LgMd47UR&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+
+<!-- BOTÃO PAYPAL: SUBSCRIÇÃO 99 €/ANO -->
 <script>
-  paypal.Buttons({
-      style: {
-          shape: 'rect',
-          color: 'gold',
-          layout: 'vertical',
-          label: 'subscribe'
-      },
-      createSubscription: function(data, actions) {
-        return actions.subscription.create({
-          plan_id: 'P-5WA45756CL7747454NEXAVJA'
-        });
-      },
-      onApprove: function(data, actions) {
-        // mostra a mensagem de sucesso e o ID da subscrição
-        var success = document.getElementById('success-box');
-        var subIdSpan = document.getElementById('sub-id');
-        if (success && subIdSpan) {
-            subIdSpan.textContent = data.subscriptionID || '';
-            success.style.display = 'block';
-        } else {
-            alert("Subscrição criada: " + data.subscriptionID);
-        }
-      },
-      onError: function(err) {
-        var errorBox = document.getElementById('error-box');
-        if (errorBox) {
-            errorBox.style.display = 'block';
-        } else {
-            console.error(err);
-        }
-      }
-  }).render('#paypal-button-container-P-5WA45756CL7747454NEXAVJA');
+  if (window.paypal) {
+      paypal.Buttons({
+          style: {
+              shape: 'rect',
+              color: 'gold',
+              layout: 'vertical',
+              label: 'subscribe'
+          },
+          createSubscription: function(data, actions) {
+              return actions.subscription.create({
+                  plan_id: 'P-5WA45756CL7747454NEXAVJA'
+              });
+          },
+          onApprove: function(data, actions) {
+              const subId = data.subscriptionID;
+              document.getElementById("sub-id").textContent = subId;
+              document.getElementById("success-box").style.display = "block";
+              document.getElementById("error-box").style.display = "none";
+          },
+          onError: function(err) {
+              console.error(err);
+              document.getElementById("success-box").style.display = "none";
+              document.getElementById("error-box").style.display = "block";
+          }
+      }).render('#paypal-button-container-P-5WA45756CL7747454NEXAVJA');
+  }
 </script>
 
 </body>
