@@ -458,7 +458,6 @@
     <header>
         <div class="brand">
             <div class="brand-logo">
-                <!-- LOGO IMG -->
                 <img src="IMG-20251119-WA0011.jpg" alt="SmartGastro QR Logo">
             </div>
             <div class="brand-text">
@@ -495,7 +494,7 @@
                 </span>
             </div>
 
-            <!-- ================= LICENÇA SANREMO SOFTWARE ================= -->
+            <!-- LICENÇA / PAYPAL -->
             <div id="smartgastro-license-box" style="
                 max-width: 720px;
                 margin: 40px auto 30px;
@@ -512,13 +511,19 @@
                     Enthält:
                     <br>• Bestellsystem <strong>SmartGastro QR</strong> (digitale Speisekarte mit QR-Code auf jedem Tisch)
                     <br>• <strong>Mitarbeiter-Portal / Stempeluhr</strong> (Ein-/Aus-Stempel, Dienstpläne, Monatsübersicht)
-                    <br>Sichere Lizenz für 1 Betrieb / empresa. Bezahlung über PayPal.
+                    <br>Gültige Lizenz für 1 Betrieb / empresa. Zahlung sicher über PayPal.
                 </p>
 
                 <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:6px;">
                     <span style="font-size:2rem;font-weight:700;color:#111827;">99&nbsp;€</span>
                     <span style="font-size:0.9rem;color:#6b7280;">/ Jahr · ano</span>
                 </div>
+
+                <!-- Linha do código da licença (preenchida pela URL ?lic=...) -->
+                <p id="license-line" style="margin:6px 0 4px;font-size:0.85rem;color:#4b5563;display:none;">
+                    <strong>Lizenz-Code:</strong> <span id="license-code"></span>
+                </p>
+
                 <p style="margin:0 0 12px;font-size:0.8rem;color:#6b7280;">
                     Jährliches Abo über PayPal. Das Abo kann jederzeit im eigenen PayPal-Konto gekündigt werden.
                 </p>
@@ -561,7 +566,6 @@
                     Support / Suporte: <strong>paulo.sanremo@web.de</strong> · WhatsApp: <strong>0176 72809926</strong>
                 </p>
             </div>
-            <!-- ================= FIM LICENÇA ================= -->
 
             <h3 class="section-title" data-i18n-key="benefitsTitle">
                 Vorteile auf einen Blick:
@@ -608,7 +612,6 @@
                 </li>
             </ol>
 
-            <!-- POSTER / FOTO HORIZONTAL -->
             <figure class="promo-figure">
                 <img src="IMG-20251120-WA0003.jpg"
                      alt="Ablauf mit QR-Code: Tisch scannen, Eisbecher wählen, Bon drucken und alles in der Kasse verbuchen.">
@@ -629,7 +632,6 @@
             <div class="phone-frame">
                 <div class="phone-notch"></div>
                 <div class="phone-video">
-                    <!-- VÍDEO DEMO -->
                     <video src="VID-20251120-WA0002.mp4"
                            autoplay
                            muted
@@ -650,34 +652,24 @@
     <section class="bottom-sections">
         <!-- LEGAL / PRIVACY -->
         <div class="card" id="legal">
-            <h3 data-i18n-key="legalTitle">Rechtliche Hinweise (Demo-Version)</h3>
+            <h3 data-i18n-key="legalTitle">Rechtliche Hinweise & Haftungsausschluss</h3>
             <p class="important-note" data-i18n-key="legalNote">
-                Hinweis: Diese Seite ist eine Produkt-Demo. Sie ersetzt keine individuelle Rechtsberatung.
+                Wichtiger Hinweis: SmartGastro QR und das Mitarbeiter-Portal sind interne Organisations-Tools. Sie ersetzen keine Registrierkasse und keine steuerliche Buchführung.
             </p>
             <p data-i18n-key="legalText1">
-                In der echten Version von SmartGastro&nbsp;QR werden alle technischen Funktionen an Ihr bestehendes Kassensystem
-                und Ihre gesetzlichen Anforderungen in Deutschland angepasst (z.&nbsp;B. GoBD-Konformität, Belegausgabepflicht,
-                Datenschutzgrundverordnung).
+                Die gezeigte Software dient ausschließlich zur internen Erfassung von Bestellungen und Arbeitszeiten. Es besteht keine technische Anbindung an ein Kassensystem. Alle Umsätze müssen weiterhin vollständig und gesetzeskonform in Ihrer offiziellen Registrierkasse oder im Kassenbuch erfasst werden.
             </p>
             <ul>
                 <li data-i18n-key="legalPoint1">
-                    Jede Bestellung kann – je nach System – direkt in die Kasse übernommen oder manuell boniert werden.
+                    Alle Verkäufe, die mit SmartGastro QR erfasst werden, sind vom Betreiber manuell in der Kasse oder Buchhaltung zu verbuchen.
                 </li>
                 <li data-i18n-key="legalPoint2">
-                    WhatsApp-Bestellungen dienen nur als interne Kommunikationshilfe und ersetzen nicht die Kassenbuchung.
+                    WhatsApp-Nachrichten und Daten aus dem Mitarbeiter-Portal dienen nur als interne Information und gelten nicht als steuerlich relevante Aufzeichnung.
                 </li>
                 <li data-i18n-key="legalPoint3">
-                    Für die endgültige Umsetzung empfiehlt sich die Abstimmung mit Steuerberater und Kassenanbieter.
+                    Wir treten ausschließlich als Software-Entwickler auf. Für Steuern, Buchführung, Arbeitszeiten und rechtliche Pflichten ist allein der Betreiber verantwortlich.
                 </li>
             </ul>
-
-            <!-- NOVO AVISO LEGAL SOBRE SOFTWARE INTERNA -->
-            <h3 style="margin-top:14px;" data-i18n-key="legalExtraTitle">
-                Haftungsausschluss – interne Software, kein Kassensystem
-            </h3>
-            <p data-i18n-key="legalExtraText">
-                SmartGastro&nbsp;QR und das Mitarbeiter-Portal sind interne Organisations-Tools und kein Kassensystem im Sinne von GoBD oder KassenSichV. Alle Umsätze müssen vollständig und korrekt in Ihrer offiziellen Registrierkasse oder im Kassenbuch erfasst werden. Wir treten ausschließlich als Software-Entwickler auf; für Buchführung, Steuern und rechtliche Pflichten ist allein der Betreiber verantwortlich.
-            </p>
 
             <h3 style="margin-top:16px;" id="privacy" data-i18n-key="privacyTitle">
                 Datenschutz / Privacy (Demo)
@@ -751,9 +743,7 @@
     </footer>
 </div>
 
-<!-- SCRIPT PRINCIPAL (TRADUÇÕES + CONTACTO) -->
 <script>
-    // Traduções básicas
     const i18n = {
         de: {
             brandTitle: "SmartGastro QR",
@@ -777,14 +767,12 @@
             videoTitle: "Video-Demo – SmartGastro QR in Aktion",
             videoTag: "Original-Aufnahme aus einem Eiscafé-Menü",
             videoCaption: "Dieses Video zeigt, wie Gäste Sorten, Sahne, Kinderbecher und Desserts direkt am Tisch auswählen.",
-            legalTitle: "Rechtliche Hinweise (Demo-Version)",
-            legalNote: "Hinweis: Diese Seite ist eine Produkt-Demo. Sie ersetzt keine individuelle Rechtsberatung.",
-            legalText1: "In der echten Version von SmartGastro QR werden alle technischen Funktionen an Ihr bestehendes Kassensystem und Ihre gesetzlichen Anforderungen in Deutschland angepasst (z. B. GoBD-Konformität, Belegausgabepflicht, Datenschutzgrundverordnung).",
-            legalPoint1: "Jede Bestellung kann – je nach System – direkt in die Kasse übernommen oder manuell boniert werden.",
-            legalPoint2: "WhatsApp-Bestellungen dienen nur als interne Kommunikationshilfe und ersetzen nicht die Kassenbuchung.",
-            legalPoint3: "Für die endgültige Umsetzung empfiehlt sich die Abstimmung mit Steuerberater und Kassenanbieter.",
-            legalExtraTitle: "Haftungsausschluss – interne Software, kein Kassensystem",
-            legalExtraText: "SmartGastro QR und das Mitarbeiter-Portal sind interne Organisations-Tools und kein Kassensystem im Sinne von GoBD oder KassenSichV. Alle Umsätze müssen vollständig und korrekt in Ihrer offiziellen Registrierkasse oder im Kassenbuch erfasst werden. Wir treten ausschließlich als Software-Entwickler auf; für Buchführung, Steuern und rechtliche Pflichten ist allein der Betreiber verantwortlich.",
+            legalTitle: "Rechtliche Hinweise & Haftungsausschluss",
+            legalNote: "Wichtiger Hinweis: SmartGastro QR und das Mitarbeiter-Portal sind interne Organisations-Tools. Sie ersetzen keine Registrierkasse und keine steuerliche Buchführung.",
+            legalText1: "Die gezeigte Software dient ausschließlich zur internen Erfassung von Bestellungen und Arbeitszeiten. Es besteht keine technische Anbindung an ein Kassensystem. Alle Umsätze müssen weiterhin vollständig und gesetzeskonform in Ihrer offiziellen Registrierkasse oder im Kassenbuch erfasst werden.",
+            legalPoint1: "Alle Verkäufe, die mit SmartGastro QR erfasst werden, sind vom Betreiber manuell in der Kasse oder Buchhaltung zu verbuchen.",
+            legalPoint2: "WhatsApp-Nachrichten und Daten aus dem Mitarbeiter-Portal dienen nur als interne Information und gelten nicht als steuerlich relevante Aufzeichnung.",
+            legalPoint3: "Wir treten ausschließlich als Software-Entwickler auf. Für Steuern, Buchführung, Arbeitszeiten und rechtliche Pflichten ist allein der Betreiber verantwortlich.",
             privacyTitle: "Datenschutz / Privacy (Demo)",
             privacyText1: "In dieser öffentlichen Demo werden keine personenbezogenen Daten dauerhaft gespeichert. Alle Eingaben dienen ausschließlich zur Veranschaulichung des Systems.",
             privacyText2: "In einer echten Installation wird SmartGastro QR an Ihre Datenschutzerklärung angepasst (u. a. Verantwortlicher, Zweck der Verarbeitung, Speicherdauer, Rechte der Gäste).",
@@ -824,16 +812,14 @@
             videoTitle: "Video demo – SmartGastro QR in action",
             videoTag: "Original recording from a real ice-cream menu",
             videoCaption: "The video shows how guests choose flavours, cream, kids cups and desserts directly at the table.",
-            legalTitle: "Legal notes (demo version)",
-            legalNote: "Note: This page is a product demo and does not replace legal advice.",
-            legalText1: "In the real version, SmartGastro QR is connected to your POS and adapted to the legal requirements in your country (e.g. tax rules, receipt obligation, data protection).",
-            legalPoint1: "Each order can be transferred into the POS system or entered manually.",
-            legalPoint2: "WhatsApp orders are only used as internal communication, not as a replacement for proper booking.",
-            legalPoint3: "For final implementation, please coordinate with your tax advisor and POS provider.",
-            legalExtraTitle: "Disclaimer – internal tool, not a POS system",
-            legalExtraText: "SmartGastro QR and the Employee Portal are internal management tools and not a POS system according to GoBD or KassenSichV. All sales must be recorded completely and correctly in your official POS or cash register. We act only as software developers; the operator is solely responsible for bookkeeping, taxes and legal obligations.",
+            legalTitle: "Legal notes & disclaimer",
+            legalNote: "Important: SmartGastro QR and the employee portal are internal tools only. They do not replace a POS system or tax-compliant bookkeeping.",
+            legalText1: "The software shown is intended only for internal recording of orders and working times. There is no technical connection to any POS system. All sales must still be booked completely and correctly in your official POS or cash register.",
+            legalPoint1: "All sales recorded with SmartGastro QR must be entered manually by the operator in the POS or accounting system.",
+            legalPoint2: "WhatsApp messages and data from the employee portal are for internal information only and are not considered tax-relevant records.",
+            legalPoint3: "We act solely as software developers. The operator is fully responsible for taxes, bookkeeping, working time records and all legal obligations.",
             privacyTitle: "Data protection / privacy (demo)",
-            privacyText1: "In this public demo no personal data is stored permanently. All inputs are only used to illustrate the system.",
+            privacyText1: "In this public demo no personal data is stored permanently. All inputs are used only to demonstrate the system.",
             privacyText2: "In a real installation, SmartGastro QR will be integrated into your own privacy policy.",
             contactTitle: "Interested in SmartGastro QR?",
             contactLead: "This demo has been tested in a real ice-cream parlour. If you want to try it in your business, just contact us.",
@@ -871,14 +857,12 @@
             videoTitle: "Vídeo demo – SmartGastro QR em ação",
             videoTag: "Gravação real de um menu de gelataria",
             videoCaption: "O vídeo mostra como o cliente escolhe sabores, natas, taças infantis e sobremesas diretamente na mesa.",
-            legalTitle: "Informações legais (versão demo)",
-            legalNote: "Aviso: Esta página é apenas uma demo do produto e não substitui aconselhamento jurídico.",
-            legalText1: "Na versão real, o SmartGastro QR é ligado à sua caixa registadora e adaptado às leis fiscais e de proteção de dados do seu país.",
-            legalPoint1: "Cada pedido pode ser integrado na caixa ou registado manualmente.",
-            legalPoint2: "Pedidos via WhatsApp servem apenas como apoio interno, não substituem o registo na caixa.",
-            legalPoint3: "Para a implementação final recomenda-se falar com o contabilista e o fornecedor da caixa.",
-            legalExtraTitle: "Aviso legal – ferramenta interna, não é sistema de caixa",
-            legalExtraText: "O SmartGastro QR e o Portal de Funcionários são ferramentas internas de organização e não constituem um sistema de caixa registadora conforme GoBD / KassenSichV. Todas as vendas devem ser registadas de forma completa e correta na caixa oficial ou no livro de caixa. Somos apenas programadores de software; a responsabilidade por contabilidade, impostos e obrigações legais é exclusivamente do operador.",
+            legalTitle: "Informações legais & aviso de responsabilidade",
+            legalNote: "Aviso importante: o SmartGastro QR e o Portal de Funcionários são apenas ferramentas internas. Não substituem uma caixa registadora nem a contabilidade fiscal.",
+            legalText1: "O software apresentado serve apenas para registo interno de pedidos e horários de trabalho. Não existe qualquer ligação técnica a sistemas de caixa. Todas as vendas devem continuar a ser registadas de forma completa e correta na caixa oficial ou na contabilidade.",
+            legalPoint1: "Todas as vendas registadas com o SmartGastro QR devem ser introduzidas manualmente, pelo operador, na caixa ou no sistema de contabilidade.",
+            legalPoint2: "Mensagens via WhatsApp e dados do Portal de Funcionários servem apenas como informação interna e não são considerados registo fiscal.",
+            legalPoint3: "Atuamos apenas como programadores de software. A responsabilidade por impostos, contabilidade, horários de trabalho e obrigações legais é exclusivamente do operador.",
             privacyTitle: "Proteção de dados / privacidade (demo)",
             privacyText1: "Nesta demo pública não são guardados dados pessoais de forma permanente. Todas as entradas servem apenas para demonstrar o sistema.",
             privacyText2: "Numa instalação real, o SmartGastro QR será adaptado à sua própria política de privacidade.",
@@ -918,14 +902,12 @@
             videoTitle: "Video demo – SmartGastro QR in azione",
             videoTag: "Registrazione reale di un menù di gelateria",
             videoCaption: "Il video mostra come i clienti scelgono gusti, panna, coppe bambini e dessert direttamente al tavolo.",
-            legalTitle: "Note legali (versione demo)",
-            legalNote: "Attenzione: questa pagina è solo una demo del prodotto e non sostituisce la consulenza legale.",
-            legalText1: "Nella versione reale SmartGastro QR viene collegato al vostro sistema cassa e adattato alla normativa locale.",
-            legalPoint1: "Ogni ordine può essere trasferito nel sistema cassa o inserito manualmente.",
-            legalPoint2: "Gli ordini via WhatsApp servono solo come supporto interno, non sostituiscono la registrazione fiscale.",
-            legalPoint3: "Per l’implementazione finale è consigliata la consulenza del commercialista e del fornitore della cassa.",
-            legalExtraTitle: "Esclusione di responsabilità – strumento interno, non registratore di cassa",
-            legalExtraText: "SmartGastro QR e il Portale Dipendenti sono strumenti di organizzazione interna e non un registratore di cassa ai sensi di GoBD / KassenSichV. Tutte le vendite devono essere registrate in modo completo e corretto nel registratore ufficiale o nei registri contabili. Siamo solo sviluppatori software; il gestore è l’unico responsabile di contabilità, tasse e obblighi legali.",
+            legalTitle: "Note legali & esclusione di responsabilità",
+            legalNote: "Avviso importante: SmartGastro QR e il Portale Dipendenti sono solo strumenti interni. Non sostituiscono un registratore di cassa né una contabilità fiscale.",
+            legalText1: "Il software mostrato serve unicamente per la registrazione interna di ordini e orari di lavoro. Non esiste alcun collegamento tecnico a sistemi cassa. Tutte le vendite devono comunque essere registrate in modo completo e corretto nel registratore ufficiale o nella contabilità.",
+            legalPoint1: "Tutte le vendite registrate con SmartGastro QR devono essere inserite manualmente dall’esercente nel sistema cassa o in contabilità.",
+            legalPoint2: "I messaggi WhatsApp e i dati del Portale Dipendenti servono solo come informazione interna e non sono considerati registri fiscali.",
+            legalPoint3: "Siamo solo sviluppatori software. La responsabilità per imposte, contabilità, orari di lavoro e obblighi legali è esclusivamente del gestore.",
             privacyTitle: "Protezione dati / privacy (demo)",
             privacyText1: "In questa demo pubblica non vengono salvati in modo permanente dati personali.",
             privacyText2: "In un’installazione reale SmartGastro QR verrà integrato nella vostra informativa sulla privacy.",
@@ -965,14 +947,12 @@
             videoTitle: "Vídeo demo – SmartGastro QR en acción",
             videoTag: "Grabación real de un menú de heladería",
             videoCaption: "El vídeo muestra cómo los clientes eligen sabores, nata, copas infantiles y postres directamente en la mesa.",
-            legalTitle: "Aviso legal (versión demo)",
-            legalNote: "Atención: esta página es solo una demo del producto y no sustituye al asesoramiento legal.",
-            legalText1: "En la versión real, SmartGastro QR se conecta a su sistema de caja y se adapta a la normativa local.",
-            legalPoint1: "Cada pedido puede integrarse en la caja o registrarse manualmente.",
-            legalPoint2: "Los pedidos por WhatsApp sirven solo como ayuda interna, no sustituyen el registro fiscal.",
-            legalPoint3: "Para la implantación final se recomienda hablar con el asesor fiscal y el proveedor de la caja.",
-            legalExtraTitle: "Aviso legal – herramienta interna, no es sistema de caja",
-            legalExtraText: "SmartGastro QR y el Portal de Empleados son herramientas internas de gestión y no un sistema de caja conforme a GoBD / KassenSichV. Todas las ventas deben registrarse completa y correctamente en la caja oficial o en los libros contables. Somos solo desarrolladores de software; la responsabilidad de la contabilidad, impuestos y obligaciones legales recae únicamente en el operador.",
+            legalTitle: "Aviso legal & exención de responsabilidad",
+            legalNote: "Aviso importante: SmartGastro QR y el Portal de Empleados son solo herramientas internas. No sustituyen un sistema de caja ni la contabilidad fiscal.",
+            legalText1: "El software mostrado sirve únicamente para el registro interno de pedidos y horarios de trabajo. No existe ninguna conexión técnica a sistemas de caja. Todas las ventas deben seguir registrándose de forma completa y correcta en la caja oficial o en la contabilidad.",
+            legalPoint1: "Todas las ventas registradas con SmartGastro QR deben ser introducidas manualmente por el operador en la caja o en el sistema de contabilidad.",
+            legalPoint2: "Los mensajes de WhatsApp y los datos del Portal de Empleados sirven solo como información interna y no se consideran registros fiscales.",
+            legalPoint3: "Actuamos únicamente como desarrolladores de software. La responsabilidad sobre impuestos, contabilidad, horarios de trabajo y obligaciones legales recae exclusivamente en el operador.",
             privacyTitle: "Protección de datos / privacidad (demo)",
             privacyText1: "En esta demo pública no se guardan datos personales de forma permanente.",
             privacyText2: "En una instalación real, SmartGastro QR se integrará en su propia política de privacidad.",
@@ -1012,14 +992,12 @@
             videoTitle: "Vidéo démo – SmartGastro QR en action",
             videoTag: "Enregistrement réel d’un menu de glacier",
             videoCaption: "La vidéo montre comment les clients choisissent parfums, crème, coupes enfants et desserts directement à table.",
-            legalTitle: "Informations légales (version démo)",
-            legalNote: "Attention : cette page est une démo produit et ne remplace pas un conseil juridique.",
-            legalText1: "Dans la version réelle, SmartGastro QR est relié à votre caisse et adapté à la législation locale.",
-            legalPoint1: "Chaque commande peut être transférée dans la caisse ou saisie manuellement.",
-            legalPoint2: "Les commandes via WhatsApp servent seulement d’aide interne et ne remplacent pas l’enregistrement comptable.",
-            legalPoint3: "Pour la mise en place finale, il est recommandé de consulter votre expert-comptable et votre fournisseur de caisse.",
-            legalExtraTitle: "Clause de non-responsabilité – outil interne, pas un système de caisse",
-            legalExtraText: "SmartGastro QR et le Portail Employés sont des outils d’organisation interne et ne constituent pas un système de caisse conforme GoBD / KassenSichV. Toutes les ventes doivent être enregistrées de manière complète et correcte dans la caisse officielle ou la comptabilité. Nous sommes uniquement développeurs du logiciel ; la responsabilité de la tenue des livres, des impôts et des obligations légales incombe exclusivement à l’exploitant.",
+            legalTitle: "Informations légales & clause de non-responsabilité",
+            legalNote: "Important : SmartGastro QR et le Portail Employés sont uniquement des outils internes. Ils ne remplacent ni une caisse enregistreuse ni une comptabilité fiscale.",
+            legalText1: "Le logiciel présenté sert uniquement à l’enregistrement interne des commandes et des horaires de travail. Il n’existe aucune connexion technique à un système de caisse. Toutes les ventes doivent continuer à être enregistrées de manière complète et correcte dans la caisse officielle ou la comptabilité.",
+            legalPoint1: "Toutes les ventes enregistrées avec SmartGastro QR doivent être saisies manuellement par l’exploitant dans la caisse ou la comptabilité.",
+            legalPoint2: "Les messages WhatsApp et les données du Portail Employés servent uniquement d’information interne et ne sont pas considérés comme des enregistrements fiscaux.",
+            legalPoint3: "Nous intervenons uniquement en tant que développeurs du logiciel. La responsabilité des impôts, de la comptabilité, des horaires de travail et des obligations légales incombe exclusivement à l’exploitant.",
             privacyTitle: "Protection des données / vie privée (démo)",
             privacyText1: "Dans cette démo publique, aucune donnée personnelle n’est conservée de manière permanente.",
             privacyText2: "Dans une installation réelle, SmartGastro QR sera intégré à votre propre politique de confidentialité.",
@@ -1054,7 +1032,7 @@
         });
     }
 
-    // Language buttons
+    // Botões de idioma
     document.querySelectorAll(".lang-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             const lang = btn.getAttribute("data-lang");
@@ -1064,10 +1042,22 @@
         });
     });
 
-    // Initial language
+    // Idioma inicial
     applyLanguage("de");
 
-    // WhatsApp + E-Mail buttons
+    // ➜ Ler ?lic=SG-0001 da URL e mostrar na linha da licença
+    const params = new URLSearchParams(window.location.search);
+    const lic = params.get("lic");
+    if (lic) {
+        const line = document.getElementById("license-line");
+        const span = document.getElementById("license-code");
+        if (line && span) {
+            span.textContent = lic;
+            line.style.display = "block";
+        }
+    }
+
+    // WhatsApp + E-Mail
     const waBtn = document.getElementById("cfWhatsAppBtn");
     const mailBtn = document.getElementById("cfMailBtn");
 
@@ -1107,7 +1097,6 @@
 <!-- SDK PAYPAL -->
 <script src="https://www.paypal.com/sdk/js?client-id=AXNSOvcYdaokv8QFi8lhyhfgsMwzgx5u5NG1yjLW4t7jNQHuyJ0I9ZlM6M_qQ9ptxRzgaw56LgMd47UR&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 
-<!-- BOTÃO PAYPAL: SUBSCRIÇÃO 99 €/ANO -->
 <script>
   if (window.paypal) {
       paypal.Buttons({
