@@ -209,6 +209,16 @@
             transform: translateY(-2px);
         }
 
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e04e4e;
+            transform: translateY(-2px);
+        }
+
         /* Featured Image Section */
         .featured-section {
             padding: 80px 0;
@@ -394,16 +404,7 @@
             justify-content: center;
             backdrop-filter: blur(5px);
         }
-<button class="btn btn-primary" id="login-btn">
-    <i class="fas fa-sign-in-alt"></i>
-    <span data-i18n="login">Anmelden</span>
-</button>
 
-<!-- ADICIONE ESTE BOTÃO DE LOGOUT (fica escondido por padrão) -->
-<a href="logout.html" id="logout-btn" class="btn btn-danger" style="display: none; margin-left: 10px;">
-    <i class="fas fa-sign-out-alt"></i>
-    <span data-i18n="logout">Abmelden</span>
-</a>
         .modal.active {
             display: flex;
         }
@@ -512,6 +513,85 @@
             margin: 15px 0;
         }
 
+        /* User Menu */
+        .user-menu {
+            display: none;
+            position: relative;
+        }
+
+        .user-menu.active {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .user-info:hover {
+            background: #e9ecef;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-name {
+            font-weight: 500;
+        }
+
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: var(--shadow-lg);
+            border-radius: var(--radius-sm);
+            z-index: 100;
+            margin-top: 10px;
+        }
+
+        .user-info:hover .user-dropdown {
+            display: block;
+        }
+
+        .user-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .user-dropdown a:hover {
+            background: #f8f9fa;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 5px 0;
+        }
+
         /* Footer */
         footer {
             background-color: var(--primary-dark);
@@ -589,6 +669,63 @@
             color: var(--dark);
             cursor: pointer;
         }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+        }
+
+        /* Messages */
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: var(--radius-sm);
+            background: var(--success);
+            color: white;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message.error {
+            background: var(--danger);
+        }
+
+        .message.info {
+            background: var(--secondary);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -601,10 +738,10 @@
                     <span>SmartGastro Pro</span>
                 </a>
                 
-                <div class="nav-links">
+                <div class="nav-links" id="nav-links">
                     <a href="#pricing" data-i18n="nav_pricing">Preise</a>
                     <a href="#how-it-works" data-i18n="nav_how_it_works">Funktionsweise</a>
-                    <a href="#dashboard" id="dashboard-nav" data-i18n="nav_dashboard">Dashboard</a>
+                    <a href="#" id="dashboard-nav" data-i18n="nav_dashboard">Dashboard</a>
                     
                     <div class="language-selector">
                         <button class="language-btn">
@@ -628,9 +765,32 @@
                         </div>
                     </div>
                     
+                    <!-- User Menu (Hidden by default) -->
+                    <div class="user-menu" id="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar" id="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="user-name" id="user-display-name">Benutzer</span>
+                            <div class="user-dropdown">
+                                <a href="#profile"><i class="fas fa-user-cog"></i> Profil</a>
+                                <a href="#settings"><i class="fas fa-cog"></i> Einstellungen</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" id="dropdown-logout"><i class="fas fa-sign-out-alt"></i> Abmelden</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Login Button -->
                     <button class="btn btn-primary" id="login-btn">
                         <i class="fas fa-sign-in-alt"></i>
                         <span data-i18n="nav_login">Login</span>
+                    </button>
+                    
+                    <!-- Logout Button (Hidden by default) -->
+                    <button class="btn btn-danger" id="logout-btn" style="display: none;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span data-i18n="nav_logout">Logout</span>
                     </button>
                 </div>
                 
@@ -647,10 +807,10 @@
             <div class="dashboard-header">
                 <div>
                     <h2 data-i18n="dashboard_welcome">Willkommen,</h2>
-                    <p><span id="user-name">Max Mustermann</span></p>
+                    <p><span id="dashboard-user-name">Max Mustermann</span></p>
                     <p data-i18n="dashboard_subtitle">SmartGastro Pro Dashboard</p>
                 </div>
-                <button class="btn btn-secondary" id="logout-btn">
+                <button class="btn btn-secondary" id="dashboard-logout-btn">
                     <i class="fas fa-sign-out-alt"></i>
                     <span data-i18n="dashboard_logout">Logout</span>
                 </button>
@@ -1036,25 +1196,23 @@
     <script src="https://www.paypal.com/sdk/js?client-id=AXNSOvcYdaokv8QFi8lhyhfgsMwzgx5u5NG1yjLW4t7jNQHuyJ0I9ZlM6M_qQ9ptxRzgaw56LgMd47UR&vault=true&intent=subscription&locale=de_DE"></script>
 
     <script>
+        // ============================================
+        // COMPLETE AUTHENTICATION SYSTEM
+        // ============================================
+
         // Multi-language translations
         const translations = {
             de: {
-                // Navigation
                 nav_pricing: "Preise",
                 nav_how_it_works: "Funktionsweise",
                 nav_dashboard: "Dashboard",
                 nav_login: "Login",
-                
-                // Hero Section
+                nav_logout: "Logout",
                 hero_title: "Professionelle Gastronomie Software",
                 hero_subtitle: "QR-Bestellsystem & Zeiterfassung in separaten Paketen. Jährliche Lizenzierung für maximale Flexibilität.",
                 hero_buy_button: "Software kaufen (99€/Jahr)",
                 hero_login_button: "Kunden Login",
-                
-                // Featured Image
                 featured_image_caption: "SmartGastro Professional Interface - Modernes Design für optimale Benutzererfahrung",
-                
-                // Pricing Section
                 pricing_title: "Wählen Sie Ihre Software",
                 pricing_subtitle: "Jährliche Lizenzierung - Jede Software separat erhältlich",
                 pricing_qr_title: "QR-Bestellsystem",
@@ -1068,8 +1226,6 @@
                 pricing_save_20: "Sparen Sie 20€ gegenüber Einzelkauf",
                 pricing_buy_now: "Jetzt kaufen",
                 pricing_buy_combo: "Komplettpaket kaufen",
-                
-                // Features
                 feature_qr_orders: "QR-Code Bestellungen",
                 feature_admin_dashboard: "Admin Dashboard",
                 feature_auto_print: "Automatischer Druck",
@@ -1088,8 +1244,6 @@
                 feature_export_times: "Arbeitszeiten-Export",
                 feature_admin_area: "Admin-Bereich",
                 feature_multi_user: "Mehrbenutzer-Support",
-                
-                // Licensing Process
                 licensing_process_title: "Lizenzierungsprozess",
                 step_1_title: "1. Kaufen",
                 step_1_desc: "Wählen Sie Ihre Software und bezahlen Sie sicher",
@@ -1099,8 +1253,6 @@
                 step_3_desc: "Erstellen Sie Ihr Konto mit der Lizenz",
                 step_4_title: "4. Loslegen",
                 step_4_desc: "Starten Sie mit Ihrer Software",
-                
-                // How It Works
                 how_it_works_title: "So funktioniert's",
                 how_it_works_subtitle: "Einfacher Prozess zur Software-Aktivierung",
                 how_step_1_title: "Software auswählen",
@@ -1113,15 +1265,11 @@
                 how_step_4_desc: "Registrieren Sie sich mit Ihrer Lizenz und erhalten Sie Zugang zur Software",
                 ready_to_start: "Bereit loszulegen?",
                 start_now_button: "Jetzt Software kaufen",
-                
-                // Payment Modal
                 payment_title: "QR-Bestellsystem kaufen",
                 payment_price: "Jährliche Lizenz:",
                 payment_email_label: "Email Adresse",
                 payment_business_label: "Betriebsname",
                 payment_secure: "Sichere Zahlung via PayPal",
-                
-                // Login Modal
                 login_title: "SmartGastro Login",
                 login_description: "Bitte melden Sie sich mit Ihren Zugangsdaten an",
                 login_email_label: "Email Adresse",
@@ -1130,15 +1278,11 @@
                 login_button: "Einloggen",
                 login_no_license: "Noch keine Lizenz?",
                 login_buy_now: "Jetzt kaufen",
-                
-                // Payment Required Modal
                 payment_required_title: "Zugang erforderlich",
                 payment_required_description: "Um die SmartGastro Software nutzen zu können, benötigen Sie eine gültige Lizenz.",
                 payment_required_price: "Preis:",
                 payment_buy_now: "Jetzt kaufen",
                 payment_later: "Später",
-                
-                // Dashboard
                 dashboard_welcome: "Willkommen,",
                 dashboard_subtitle: "SmartGastro Pro Dashboard",
                 dashboard_logout: "Logout",
@@ -1154,8 +1298,6 @@
                 dashboard_user_manual: "Benutzerhandbuch (PDF)",
                 dashboard_video_tutorials: "Video-Tutorials",
                 dashboard_support: "Technischer Support",
-                
-                // Footer
                 footer_description: "Professionelle Software für Gastronomiebetriebe",
                 footer_contact: "Kontakt",
                 footer_software: "Software",
@@ -1170,6 +1312,7 @@
                 nav_how_it_works: "How it Works",
                 nav_dashboard: "Dashboard",
                 nav_login: "Login",
+                nav_logout: "Logout",
                 hero_title: "Professional Hospitality Software",
                 hero_subtitle: "QR Ordering System & Time Tracking in separate packages. Annual licensing for maximum flexibility.",
                 hero_buy_button: "Buy Software (99€/Year)",
@@ -1268,527 +1411,387 @@
                 footer_dashboard: "Dashboard",
                 footer_copyright: "© 2025 SmartGastro Pro. All rights reserved.",
                 footer_pricing: "Annual licensing - Price per software: 99€/year"
-            },
-            it: {
-                nav_pricing: "Prezzi",
-                nav_how_it_works: "Come Funziona",
-                nav_dashboard: "Dashboard",
-                nav_login: "Login",
-                hero_title: "Software Professionale per la Ristorazione",
-                hero_subtitle: "Sistema di ordinazione QR & rilevazione presenze in pacchetti separati. Licenza annuale per massima flessibilità.",
-                hero_buy_button: "Acquista Software (99€/Anno)",
-                hero_login_button: "Login Cliente",
-                featured_image_caption: "Interfaccia Professionale SmartGastro - Design moderno per un'esperienza utente ottimale",
-                pricing_title: "Scegli il Tuo Software",
-                pricing_subtitle: "Licenza annuale - Ogni software disponibile separatamente",
-                pricing_qr_title: "Sistema di Ordinazione QR",
-                pricing_qr_desc: "Sistema di ordinazione professionale con tecnologia QR code",
-                pricing_combo_title: "Entrambi i Software",
-                pricing_combo_desc: "Pacchetto completo con sconto del 10%",
-                pricing_time_title: "Rilevazione Presenze",
-                pricing_time_desc: "Gestione dipendenti con funzione di timbratura",
-                pricing_per_year: "/ anno",
-                pricing_recommended: "Consigliato",
-                pricing_save_20: "Risparmia 20€ rispetto all'acquisto singolo",
-                pricing_buy_now: "Acquista Ora",
-                pricing_buy_combo: "Acquista Pacchetto Completo",
-                feature_qr_orders: "Ordini con QR Code",
-                feature_admin_dashboard: "Dashboard Admin",
-                feature_auto_print: "Stampa Automatica",
-                feature_sales_stats: "Statistiche Vendite",
-                feature_menu_management: "Gestione Menù",
-                feature_24_7_support: "Supporto 24/7",
-                feature_qr_system: "Sistema di Ordinazione QR",
-                feature_time_tracking: "Software Rilevazione Presenze",
-                feature_combined_license: "Licenza Combinata",
-                feature_unified_dashboard: "Dashboard Unificato",
-                feature_priority_support: "Supporto Prioritario",
-                feature_free_updates: "Aggiornamenti Gratuiti",
-                feature_clock_in_out: "Timbratura Ingresso/Uscita",
-                feature_scheduling: "Pianificazione Turni",
-                feature_whatsapp: "Integrazione WhatsApp",
-                feature_export_times: "Esportazione Orari",
-                feature_admin_area: "Area Admin",
-                feature_multi_user: "Supporto Multi-Utente",
-                licensing_process_title: "Processo di Licenza",
-                step_1_title: "1. Acquista",
-                step_1_desc: "Scegli il tuo software e paga in modo sicuro",
-                step_2_title: "2. Ricevi Licenza",
-                step_2_desc: "Riceverai le tue chiavi di licenza via email",
-                step_3_title: "3. Registrati",
-                step_3_desc: "Crea il tuo account con la licenza",
-                step_4_title: "4. Inizia",
-                step_4_desc: "Inizia a usare il tuo software",
-                how_it_works_title: "Come Funziona",
-                how_it_works_subtitle: "Processo semplice per l'attivazione del software",
-                how_step_1_title: "Scegli Software",
-                how_step_1_desc: "Seleziona tra sistema di ordinazione QR, rilevazione presenze o pacchetto completo",
-                how_step_2_title: "Pagamento Sicuro",
-                how_step_2_desc: "Paga 99€ all'anno per software tramite il nostro sistema di pagamento sicuro",
-                how_step_3_title: "Ricevi Licenza",
-                how_step_3_desc: "Riceverai una chiave di licenza unica via email",
-                how_step_4_title: "Crea Account",
-                how_step_4_desc: "Registrati con la tua licenza e ottieni accesso al software",
-                ready_to_start: "Pronto a iniziare?",
-                start_now_button: "Acquista Software Ora",
-                payment_title: "Acquista Sistema di Ordinazione QR",
-                payment_price: "Licenza annuale:",
-                payment_email_label: "Indirizzo Email",
-                payment_business_label: "Nome Attività",
-                payment_secure: "Pagamento sicuro via PayPal",
-                login_title: "SmartGastro Login",
-                login_description: "Accedi con le tue credenziali",
-                login_email_label: "Indirizzo Email",
-                login_license_label: "Chiave di Licenza",
-                login_license_help: "Troverai la tua chiave di licenza nell'email di conferma",
-                login_button: "Accedi",
-                login_no_license: "Ancora nessuna licenza?",
-                login_buy_now: "Acquista Ora",
-                payment_required_title: "Accesso Richiesto",
-                payment_required_description: "Per utilizzare il software SmartGastro, hai bisogno di una licenza valida.",
-                payment_required_price: "Prezzo:",
-                payment_buy_now: "Acquista Ora",
-                payment_later: "Più Tardi",
-                dashboard_welcome: "Benvenuto,",
-                dashboard_subtitle: "Dashboard SmartGastro Pro",
-                dashboard_logout: "Logout",
-                dashboard_qr_system: "Sistema di Ordinazione QR",
-                dashboard_qr_desc: "Accesso al software di ordinazione QR",
-                dashboard_time_tracking: "Rilevazione Presenze",
-                dashboard_time_desc: "Accesso al software di rilevazione presenze",
-                dashboard_your_license: "La Tua Licenza",
-                dashboard_valid_until: "Valida fino a:",
-                dashboard_open_software: "Apri Software",
-                dashboard_downloads: "Download Software",
-                dashboard_downloads_desc: "File di installazione e documentazione",
-                dashboard_user_manual: "Manuale Utente (PDF)",
-                dashboard_video_tutorials: "Video Tutorial",
-                dashboard_support: "Supporto Tecnico",
-                footer_description: "Software professionale per attività di ristorazione",
-                footer_contact: "Contatto",
-                footer_software: "Software",
-                footer_qr_system: "Sistema di Ordinazione QR",
-                footer_time_tracking: "Rilevazione Presenze",
-                footer_dashboard: "Dashboard",
-                footer_copyright: "© 2025 SmartGastro Pro. Tutti i diritti riservati.",
-                footer_pricing: "Licenza annuale - Prezzo per software: 99€/anno"
-            },
-            pt: {
-                nav_pricing: "Preços",
-                nav_how_it_works: "Como Funciona",
-                nav_dashboard: "Dashboard",
-                nav_login: "Login",
-                hero_title: "Software Profissional para Restauração",
-                hero_subtitle: "Sistema de Pedidos QR & Controlo de Tempos em pacotes separados. Licenciamento anual para máxima flexibilidade.",
-                hero_buy_button: "Comprar Software (99€/Ano)",
-                hero_login_button: "Login Cliente",
-                featured_image_caption: "Interface Profissional SmartGastro - Design moderno para experiência de utilizador ideal",
-                pricing_title: "Escolha o Seu Software",
-                pricing_subtitle: "Licenciamento anual - Cada software disponível separadamente",
-                pricing_qr_title: "Sistema de Pedidos QR",
-                pricing_qr_desc: "Sistema de pedidos profissional com tecnologia QR code",
-                pricing_combo_title: "Ambos os Softwares",
-                pricing_combo_desc: "Pacote completo com 10% de desconto",
-                pricing_time_title: "Controlo de Tempos",
-                pricing_time_desc: "Gestão de funcionários com função de marcação",
-                pricing_per_year: "/ ano",
-                pricing_recommended: "Recomendado",
-                pricing_save_20: "Poupe 20€ em comparação com compra individual",
-                pricing_buy_now: "Comprar Agora",
-                pricing_buy_combo: "Comprar Pacote Completo",
-                feature_qr_orders: "Pedidos com QR Code",
-                feature_admin_dashboard: "Dashboard Admin",
-                feature_auto_print: "Impressão Automática",
-                feature_sales_stats: "Estatísticas de Vendas",
-                feature_menu_management: "Gestão de Menu",
-                feature_24_7_support: "Suporte 24/7",
-                feature_qr_system: "Sistema de Pedidos QR",
-                feature_time_tracking: "Software de Controlo de Tempos",
-                feature_combined_license: "Licença Combinada",
-                feature_unified_dashboard: "Dashboard Unificado",
-                feature_priority_support: "Suporte Prioritário",
-                feature_free_updates: "Atualizações Gratuitas",
-                feature_clock_in_out: "Marcação Entrada/Saída",
-                feature_scheduling: "Planeamento de Horários",
-                feature_whatsapp: "Integração WhatsApp",
-                feature_export_times: "Exportação de Horários",
-                feature_admin_area: "Área Admin",
-                feature_multi_user: "Suporte Multi-utilizador",
-                licensing_process_title: "Processo de Licenciamento",
-                step_1_title: "1. Comprar",
-                step_1_desc: "Escolha o seu software e pague de forma segura",
-                step_2_title: "2. Receber Licença",
-                step_2_desc: "Receberá as suas chaves de licença por email",
-                step_3_title: "3. Registar",
-                step_3_desc: "Crie a sua conta com a licença",
-                step_4_title: "4. Começar",
-                step_4_desc: "Comece a usar o seu software",
-                how_it_works_title: "Como Funciona",
-                how_it_works_subtitle: "Processo simples para ativação do software",
-                how_step_1_title: "Escolher Software",
-                how_step_1_desc: "Selecione entre sistema de pedidos QR, controlo de tempos ou pacote completo",
-                how_step_2_title: "Pagamento Seguro",
-                how_step_2_desc: "Pague 99€ por ano por software através do nosso sistema de pagamento seguro",
-                how_step_3_title: "Receber Licença",
-                how_step_3_desc: "Receberá uma chave de licença única por email",
-                how_step_4_title: "Criar Conta",
-                how_step_4_desc: "Registe-se com a sua licença e obtenha acesso ao software",
-                ready_to_start: "Pronto para começar?",
-                start_now_button: "Comprar Software Agora",
-                payment_title: "Comprar Sistema de Pedidos QR",
-                payment_price: "Licença anual:",
-                payment_email_label: "Endereço Email",
-                payment_business_label: "Nome do Estabelecimento",
-                payment_secure: "Pagamento seguro via PayPal",
-                login_title: "SmartGastro Login",
-                login_description: "Por favor, inicie sessão com as suas credenciais",
-                login_email_label: "Endereço Email",
-                login_license_label: "Chave de Licença",
-                login_license_help: "Encontrará a sua chave de licença no email de confirmação",
-                login_button: "Iniciar Sessão",
-                login_no_license: "Ainda não tem licença?",
-                login_buy_now: "Comprar Agora",
-                payment_required_title: "Acesso Requerido",
-                payment_required_description: "Para utilizar o software SmartGastro, precisa de uma licença válida.",
-                payment_required_price: "Preço:",
-                payment_buy_now: "Comprar Agora",
-                payment_later: "Mais Tarde",
-                dashboard_welcome: "Bem-vindo,",
-                dashboard_subtitle: "Dashboard SmartGastro Pro",
-                dashboard_logout: "Sair",
-                dashboard_qr_system: "Sistema de Pedidos QR",
-                dashboard_qr_desc: "Acesso ao software de sistema de pedidos QR",
-                dashboard_time_tracking: "Controlo de Tempos",
-                dashboard_time_desc: "Acesso ao software de controlo de tempos",
-                dashboard_your_license: "A Sua Licença",
-                dashboard_valid_until: "Válida até:",
-                dashboard_open_software: "Abrir Software",
-                dashboard_downloads: "Downloads de Software",
-                dashboard_downloads_desc: "Ficheiros de instalação e documentação",
-                dashboard_user_manual: "Manual do Utilizador (PDF)",
-                dashboard_video_tutorials: "Video Tutoriais",
-                dashboard_support: "Suporte Técnico",
-                footer_description: "Software profissional para empresas de restauração",
-                footer_contact: "Contacto",
-                footer_software: "Software",
-                footer_qr_system: "Sistema de Pedidos QR",
-                footer_time_tracking: "Controlo de Tempos",
-                footer_dashboard: "Dashboard",
-                footer_copyright: "© 2025 SmartGastro Pro. Todos os direitos reservados.",
-                footer_pricing: "Licenciamento anual - Preço por software: 99€/ano"
             }
         };
 
-        // State management
-        let currentUser = null;
-        let selectedSoftware = null;
-        let currentLanguage = 'de';
-
-        // Apply translations
-        function applyTranslation(lang) {
-            currentLanguage = lang;
-            const dict = translations[lang];
-            
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (dict[key]) {
-                    element.textContent = dict[key];
-                }
-            });
-            
-            // Update language button
-            document.querySelector('.current-language').textContent = 
-                lang === 'de' ? 'Deutsch' : 
-                lang === 'en' ? 'English' : 
-                lang === 'it' ? 'Italiano' : 'Português';
-            
-            // Update PayPal button locale
-            const paypalLocale = 
-                lang === 'de' ? 'de_DE' : 
-                lang === 'en' ? 'en_US' : 
-                lang === 'it' ? 'it_IT' : 'pt_PT';
-            
-            if (window.paypal && document.querySelector('#paypal-button-container').children.length > 0) {
-                document.querySelector('#paypal-button-container').innerHTML = '';
-                initializePayPal(paypalLocale);
+        class AuthSystem {
+            constructor() {
+                this.currentUser = null;
+                this.currentLanguage = 'de';
+                this.selectedSoftware = null;
+                this.init();
             }
-            
-            localStorage.setItem('smartgastro_language', lang);
-        }
 
-        // Generate licenses
-        function generateLicense(softwareType) {
-            const prefix = softwareType === 'qr' ? 'SG-QR' : 
-                          softwareType === 'time' ? 'SG-TIME' : 'SG-COMBO';
-            const year = new Date().getFullYear();
-            const random = Math.random().toString(36).substring(2, 10).toUpperCase();
-            return `${prefix}-${year}-${random}`;
-        }
-
-        // Show dashboard
-        function showDashboard() {
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('client-dashboard').classList.add('active');
-            
-            // Display license keys
-            document.getElementById('license-qr').textContent = 
-                localStorage.getItem('license_qr') || generateLicense('qr');
-            document.getElementById('license-time').textContent = 
-                localStorage.getItem('license_time') || generateLicense('time');
-            
-            // Set username
-            const user = JSON.parse(localStorage.getItem('smartgastro_user'));
-            if (user) {
-                document.getElementById('user-name').textContent = user.name;
+            init() {
+                this.setupElements();
+                this.bindEvents();
+                this.checkAuthStatus();
+                this.applyTranslation(this.currentLanguage);
             }
-        }
 
-        // Show main content
-        function showMainContent() {
-            document.getElementById('client-dashboard').classList.remove('active');
-            document.getElementById('main-content').style.display = 'block';
-        }
-
-        // Check authentication
-        function checkAuth() {
-            const user = localStorage.getItem('smartgastro_user');
-            const hasLicense = localStorage.getItem('has_paid_license');
-            
-            if (user && hasLicense === 'true') {
-                showDashboard();
-            } else if (user && !hasLicense) {
-                showMainContent();
-                document.getElementById('payment-required-modal').classList.add('active');
-            } else {
-                showMainContent();
+            setupElements() {
+                // Get all DOM elements
+                this.elements = {
+                    loginBtn: document.getElementById('login-btn'),
+                    logoutBtn: document.getElementById('logout-btn'),
+                    userMenu: document.getElementById('user-menu'),
+                    userName: document.getElementById('user-display-name'),
+                    userAvatar: document.getElementById('user-avatar'),
+                    loginModal: document.getElementById('login-modal'),
+                    paymentModal: document.getElementById('payment-modal'),
+                    paymentRequiredModal: document.getElementById('payment-required-modal'),
+                    closeLogin: document.getElementById('close-login'),
+                    closePayment: document.getElementById('close-payment'),
+                    submitLogin: document.getElementById('submit-login'),
+                    loginEmail: document.getElementById('login-email'),
+                    licenseKey: document.getElementById('license-key'),
+                    dashboardNav: document.getElementById('dashboard-nav'),
+                    dashboardLogout: document.getElementById('dashboard-logout-btn'),
+                    dropdownLogout: document.getElementById('dropdown-logout'),
+                    navLinks: document.getElementById('nav-links'),
+                    mobileMenuBtn: document.getElementById('mobile-menu-btn'),
+                    mainContent: document.getElementById('main-content'),
+                    clientDashboard: document.getElementById('client-dashboard'),
+                    goToPayment: document.getElementById('go-to-payment'),
+                    buyNowRedirect: document.getElementById('buy-now-redirect'),
+                    closePaymentRequired: document.getElementById('close-payment-required'),
+                    heroLoginBtn: document.getElementById('hero-login-btn')
+                };
             }
-        }
 
-        // Language selector
-        document.querySelectorAll('.language-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const lang = this.getAttribute('data-lang');
-                applyTranslation(lang);
-                document.querySelector('.language-dropdown').classList.remove('active');
-            });
-        });
-
-        document.querySelector('.language-btn').addEventListener('click', function() {
-            document.querySelector('.language-dropdown').classList.toggle('active');
-        });
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.language-selector')) {
-                document.querySelector('.language-dropdown').classList.remove('active');
-            }
-        });
-
-        // Modal Handlers
-        document.getElementById('login-btn').addEventListener('click', () => {
-            document.getElementById('login-modal').classList.add('active');
-        });
-
-        document.getElementById('hero-login-btn').addEventListener('click', () => {
-            document.getElementById('login-modal').classList.add('active');
-        });
-
-        document.getElementById('dashboard-nav').addEventListener('click', (e) => {
-            e.preventDefault();
-            checkAuth();
-        });
-
-        // Close buttons
-        document.querySelectorAll('.close-modal').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.modal').forEach(modal => {
-                    modal.classList.remove('active');
+            bindEvents() {
+                // Login button
+                this.elements.loginBtn.addEventListener('click', () => this.showLoginModal());
+                this.elements.heroLoginBtn.addEventListener('click', () => this.showLoginModal());
+                
+                // Close modals
+                this.elements.closeLogin.addEventListener('click', () => this.hideLoginModal());
+                this.elements.closePayment.addEventListener('click', () => this.hidePaymentModal());
+                this.elements.closePaymentRequired.addEventListener('click', () => this.hidePaymentRequiredModal());
+                
+                // Login form
+                this.elements.submitLogin.addEventListener('click', () => this.handleLogin());
+                
+                // Logout buttons
+                this.elements.logoutBtn.addEventListener('click', () => this.handleLogout());
+                this.elements.dashboardLogout.addEventListener('click', () => this.handleLogout());
+                this.elements.dropdownLogout.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleLogout();
                 });
-            });
-        });
-
-        // Buy buttons
-        document.querySelectorAll('[data-software]').forEach(btn => {
-            btn.addEventListener('click', function() {
-                selectedSoftware = this.getAttribute('data-software');
-                const titleDict = translations[currentLanguage];
-                let title = '';
                 
-                if (selectedSoftware === 'qr') {
-                    title = titleDict.payment_title || 'QR-Bestellsystem kaufen';
-                } else if (selectedSoftware === 'time') {
-                    title = 'Zeiterfassung kaufen';
-                } else {
-                    title = 'Komplettpaket kaufen';
-                }
+                // Dashboard navigation
+                this.elements.dashboardNav.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showDashboard();
+                });
                 
-                document.getElementById('payment-title').textContent = title;
-                document.getElementById('payment-modal').classList.add('active');
-            });
-        });
-
-        // PayPal Integration
-        function initializePayPal(locale = 'de_DE') {
-            paypal.Buttons({
-                style: {
-                    shape: 'rect',
-                    color: 'gold',
-                    layout: 'vertical',
-                    label: 'subscribe',
-                    locale: locale
-                },
-                createSubscription: function(data, actions) {
-                    return actions.subscription.create({
-                        plan_id: 'P-5WA45756CL7747454NEXAVJA'
+                // Payment navigation
+                this.elements.goToPayment.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.hideLoginModal();
+                    this.showPaymentModal();
+                });
+                
+                this.elements.buyNowRedirect.addEventListener('click', () => {
+                    this.hidePaymentRequiredModal();
+                    this.showPaymentModal();
+                });
+                
+                // Mobile menu
+                this.elements.mobileMenuBtn.addEventListener('click', () => {
+                    this.elements.navLinks.classList.toggle('active');
+                });
+                
+                // Language selector
+                document.querySelectorAll('.language-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        const lang = option.getAttribute('data-lang');
+                        this.applyTranslation(lang);
+                        document.querySelector('.language-dropdown').classList.remove('active');
                     });
-                },
-                onApprove: function(data, actions) {
-                    const email = document.getElementById('payment-email').value;
-                    const business = document.getElementById('business-name').value;
-                    
-                    // Generate and save licenses
-                    const licenseQR = generateLicense('qr');
-                    const licenseTime = generateLicense('time');
-                    
-                    localStorage.setItem('license_qr', licenseQR);
-                    localStorage.setItem('license_time', licenseTime);
-                    localStorage.setItem('has_paid_license', 'true');
-                    
-                    // Create user
-                    const user = {
-                        name: business,
-                        email: email,
-                        license: selectedSoftware === 'both' ? 'combo' : selectedSoftware
-                    };
-                    localStorage.setItem('smartgastro_user', JSON.stringify(user));
-                    
-                    // Success message
-                    const successMsg = currentLanguage === 'de' ? 
-                        'Kauf erfolgreich! Ihre Lizenzschlüssel wurden per Email gesendet.' :
-                        currentLanguage === 'en' ?
-                        'Purchase successful! Your license keys have been sent by email.' :
-                        currentLanguage === 'it' ?
-                        'Acquisto completato! Le tue chiavi di licenza sono state inviate via email.' :
-                        'Compra bem-sucedida! As suas chaves de licença foram enviadas por email.';
-                    
-                    alert(successMsg);
-                    
-                    // Close modal and show dashboard
-                    document.getElementById('payment-modal').classList.remove('active');
-                    showDashboard();
-                },
-                onError: function(err) {
-                    console.error('PayPal Error:', err);
-                    const errorMsg = currentLanguage === 'de' ?
-                        'Es gab ein Problem mit der Zahlung. Bitte versuchen Sie es erneut.' :
-                        currentLanguage === 'en' ?
-                        'There was a problem with the payment. Please try again.' :
-                        currentLanguage === 'it' ?
-                        'Si è verificato un problema con il pagamento. Riprova.' :
-                        'Ocorreu um problema com o pagamento. Por favor, tente novamente.';
-                    
-                    alert(errorMsg);
-                }
-            }).render('#paypal-button-container');
-        }
-
-        // Login handler
-        document.getElementById('submit-login').addEventListener('click', () => {
-            const email = document.getElementById('login-email').value;
-            const licenseKey = document.getElementById('license-key').value;
-            
-            if (!email || !licenseKey) {
-                const alertMsg = currentLanguage === 'de' ?
-                    'Bitte geben Sie Email und Lizenzschlüssel ein.' :
-                    currentLanguage === 'en' ?
-                    'Please enter email and license key.' :
-                    currentLanguage === 'it' ?
-                    'Inserisci email e chiave di licenza.' :
-                    'Por favor, insira o email e chave de licença.';
-                alert(alertMsg);
-                return;
-            }
-            
-            // Validate license (in production this would be server validation)
-            if (licenseKey.startsWith('SG-')) {
-                localStorage.setItem('has_paid_license', 'true');
+                });
                 
-                const user = {
-                    name: 'Restaurant Owner',
+                document.querySelector('.language-btn').addEventListener('click', () => {
+                    document.querySelector('.language-dropdown').classList.toggle('active');
+                });
+                
+                // Close modals on outside click
+                document.addEventListener('click', (e) => {
+                    if (e.target === this.elements.loginModal) {
+                        this.hideLoginModal();
+                    }
+                    if (e.target === this.elements.paymentModal) {
+                        this.hidePaymentModal();
+                    }
+                    if (e.target === this.elements.paymentRequiredModal) {
+                        this.hidePaymentRequiredModal();
+                    }
+                });
+                
+                // Close language dropdown on outside click
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.language-selector')) {
+                        document.querySelector('.language-dropdown').classList.remove('active');
+                    }
+                });
+                
+                // Buy buttons
+                document.querySelectorAll('[data-software]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.selectedSoftware = btn.getAttribute('data-software');
+                        this.showPaymentModal();
+                    });
+                });
+            }
+
+            applyTranslation(lang) {
+                this.currentLanguage = lang;
+                const dict = translations[lang];
+                
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (dict[key]) {
+                        element.textContent = dict[key];
+                    }
+                });
+                
+                document.querySelector('.current-language').textContent = 
+                    lang === 'de' ? 'Deutsch' : 'English';
+                
+                localStorage.setItem('smartgastro_language', lang);
+            }
+
+            checkAuthStatus() {
+                const user = JSON.parse(localStorage.getItem('smartgastro_user'));
+                const hasLicense = localStorage.getItem('smartgastro_license') === 'true';
+                
+                if (user && hasLicense) {
+                    this.currentUser = user;
+                    this.updateUI();
+                    this.showDashboard();
+                } else if (user && !hasLicense) {
+                    this.currentUser = user;
+                    this.updateUI();
+                    this.showPaymentRequiredModal();
+                } else {
+                    this.showMainContent();
+                }
+                
+                // Set language
+                const savedLang = localStorage.getItem('smartgastro_language') || 'de';
+                this.applyTranslation(savedLang);
+            }
+
+            updateUI() {
+                if (this.currentUser) {
+                    // Update user info
+                    this.elements.userName.textContent = this.currentUser.name;
+                    this.elements.userAvatar.innerHTML = this.currentUser.name.charAt(0).toUpperCase();
+                    document.getElementById('dashboard-user-name').textContent = this.currentUser.name;
+                    
+                    // Show user menu, hide login button
+                    this.elements.userMenu.classList.add('active');
+                    this.elements.loginBtn.style.display = 'none';
+                    this.elements.logoutBtn.style.display = 'flex';
+                } else {
+                    // Show login button, hide user menu
+                    this.elements.userMenu.classList.remove('active');
+                    this.elements.loginBtn.style.display = 'flex';
+                    this.elements.logoutBtn.style.display = 'none';
+                }
+            }
+
+            showLoginModal() {
+                this.elements.loginModal.classList.add('active');
+                this.elements.loginEmail.focus();
+            }
+
+            hideLoginModal() {
+                this.elements.loginModal.classList.remove('active');
+                this.elements.loginEmail.value = '';
+                this.elements.licenseKey.value = '';
+            }
+
+            showPaymentModal() {
+                this.elements.paymentModal.classList.add('active');
+            }
+
+            hidePaymentModal() {
+                this.elements.paymentModal.classList.remove('active');
+            }
+
+            showPaymentRequiredModal() {
+                this.elements.paymentRequiredModal.classList.add('active');
+            }
+
+            hidePaymentRequiredModal() {
+                this.elements.paymentRequiredModal.classList.remove('active');
+            }
+
+            async handleLogin() {
+                const email = this.elements.loginEmail.value.trim();
+                const licenseKey = this.elements.licenseKey.value.trim();
+                
+                if (!email || !licenseKey) {
+                    this.showMessage('Bitte füllen Sie alle Felder aus', 'error');
+                    return;
+                }
+                
+                // Simple validation
+                if (!licenseKey.startsWith('SG-')) {
+                    this.showMessage('Ungültiger Lizenzschlüssel', 'error');
+                    return;
+                }
+                
+                this.showMessage('Anmeldung wird durchgeführt...', 'info');
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Create user object
+                const userName = email.split('@')[0];
+                const formattedName = userName.charAt(0).toUpperCase() + userName.slice(1);
+                
+                this.currentUser = {
+                    name: formattedName,
                     email: email,
                     license: licenseKey
                 };
-                localStorage.setItem('smartgastro_user', JSON.stringify(user));
                 
-                document.getElementById('login-modal').classList.remove('active');
-                showDashboard();
+                // Save to localStorage
+                localStorage.setItem('smartgastro_user', JSON.stringify(this.currentUser));
+                localStorage.setItem('smartgastro_license', 'true');
                 
-                const successMsg = currentLanguage === 'de' ?
-                    'Erfolgreich eingeloggt!' :
-                    currentLanguage === 'en' ?
-                    'Successfully logged in!' :
-                    currentLanguage === 'it' ?
-                    'Accesso effettuato con successo!' :
-                    'Sessão iniciada com sucesso!';
-                alert(successMsg);
-            } else {
-                const errorMsg = currentLanguage === 'de' ?
-                    'Ungültiger Lizenzschlüssel. Bitte überprüfen Sie Ihre Eingabe.' :
-                    currentLanguage === 'en' ?
-                    'Invalid license key. Please check your input.' :
-                    currentLanguage === 'it' ?
-                    'Chiave di licenza non valida. Controlla il tuo inserimento.' :
-                    'Chave de licença inválida. Por favor, verifique a sua entrada.';
-                alert(errorMsg);
+                // Update UI and show dashboard
+                this.updateUI();
+                this.hideLoginModal();
+                this.showDashboard();
+                this.showMessage('Erfolgreich eingeloggt!', 'success');
             }
-        });
 
-        // Navigation to purchase
-        document.getElementById('go-to-payment').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('login-modal').classList.remove('active');
-            document.getElementById('payment-modal').classList.add('active');
-        });
+            handleLogout() {
+                if (confirm(this.currentLanguage === 'de' ? 
+                    'Möchten Sie sich wirklich abmelden?' : 
+                    'Do you really want to log out?')) {
+                    
+                    // Clear data
+                    localStorage.removeItem('smartgastro_user');
+                    localStorage.removeItem('smartgastro_license');
+                    this.currentUser = null;
+                    
+                    // Update UI
+                    this.updateUI();
+                    this.showMainContent();
+                    this.showMessage(this.currentLanguage === 'de' ? 
+                        'Erfolgreich abgemeldet' : 
+                        'Successfully logged out', 'info');
+                }
+            }
 
-        document.getElementById('buy-now-redirect').addEventListener('click', () => {
-            document.getElementById('payment-required-modal').classList.remove('active');
-            document.getElementById('payment-modal').classList.add('active');
-        });
+            showDashboard() {
+                this.elements.mainContent.style.display = 'none';
+                this.elements.clientDashboard.classList.add('active');
+                
+                // Generate and display licenses
+                const licenseQR = this.generateLicense('qr');
+                const licenseTime = this.generateLicense('time');
+                
+                document.getElementById('license-qr').textContent = licenseQR;
+                document.getElementById('license-time').textContent = licenseTime;
+            }
 
-        document.getElementById('close-payment-required').addEventListener('click', () => {
-            document.getElementById('payment-required-modal').classList.remove('active');
-        });
+            showMainContent() {
+                this.elements.clientDashboard.classList.remove('active');
+                this.elements.mainContent.style.display = 'block';
+            }
 
-        // Logout
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            localStorage.removeItem('smartgastro_user');
-            localStorage.removeItem('has_paid_license');
-            showMainContent();
-            
-            const logoutMsg = currentLanguage === 'de' ?
-                'Erfolgreich ausgeloggt.' :
-                currentLanguage === 'en' ?
-                'Successfully logged out.' :
-                currentLanguage === 'it' ?
-                'Disconnessione effettuata con successo.' :
-                'Sessão terminada com sucesso.';
-            alert(logoutMsg);
-        });
+            generateLicense(type) {
+                const prefix = type === 'qr' ? 'SG-QR' : 'SG-TIME';
+                const year = new Date().getFullYear();
+                const random = Math.random().toString(36).substring(2, 14).toUpperCase();
+                return `${prefix}-${year}-${random.substring(0, 4)}-${random.substring(4, 8)}-${random.substring(8, 12)}`;
+            }
 
-        // Mobile menu
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            const nav = document.querySelector('.nav-links');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-        });
+            showMessage(text, type = 'info') {
+                // Remove existing message
+                const existingMessage = document.querySelector('.message');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+                
+                // Create new message
+                const message = document.createElement('div');
+                message.className = `message ${type}`;
+                message.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                    <span>${text}</span>
+                `;
+                
+                document.body.appendChild(message);
+                
+                // Auto remove
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.style.opacity = '0';
+                        setTimeout(() => message.remove(), 300);
+                    }
+                }, 5000);
+            }
 
-        // Initialize
+            initializePayPal() {
+                // PayPal initialization code
+                if (window.paypal) {
+                    paypal.Buttons({
+                        style: {
+                            shape: 'rect',
+                            color: 'gold',
+                            layout: 'vertical',
+                            label: 'subscribe'
+                        },
+                        createSubscription: (data, actions) => {
+                            return actions.subscription.create({
+                                plan_id: 'P-5WA45756CL7747454NEXAVJA'
+                            });
+                        },
+                        onApprove: (data, actions) => {
+                            const email = document.getElementById('payment-email').value;
+                            const business = document.getElementById('business-name').value;
+                            
+                            // Create user
+                            const user = {
+                                name: business || 'Restaurant Owner',
+                                email: email,
+                                license: this.selectedSoftware || 'qr'
+                            };
+                            
+                            localStorage.setItem('smartgastro_user', JSON.stringify(user));
+                            localStorage.setItem('smartgastro_license', 'true');
+                            
+                            this.currentUser = user;
+                            this.updateUI();
+                            this.hidePaymentModal();
+                            this.showDashboard();
+                            
+                            this.showMessage(this.currentLanguage === 'de' ?
+                                'Kauf erfolgreich! Lizenz aktiviert.' :
+                                'Purchase successful! License activated.', 'success');
+                        },
+                        onError: (err) => {
+                            console.error('PayPal Error:', err);
+                            this.showMessage(this.currentLanguage === 'de' ?
+                                'Fehler bei der Zahlung' :
+                                'Payment error', 'error');
+                        }
+                    }).render('#paypal-button-container');
+                }
+            }
+        }
+
+        // Initialize the system
         document.addEventListener('DOMContentLoaded', () => {
-            // Set language from localStorage or default to German
-            const savedLanguage = localStorage.getItem('smartgastro_language') || 'de';
-            applyTranslation(savedLanguage);
-            
-            checkAuth();
-            initializePayPal();
+            window.authSystem = new AuthSystem();
+            window.authSystem.initializePayPal();
             
             // Smooth scrolling
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1800,75 +1803,7 @@
                     }
                 });
             });
-            
-            // Close mobile menu on resize
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 992) {
-                    document.querySelector('.nav-links').style.display = 'flex';
-                }
-            });
         });
-  <script>
-// ============================================
-// LOGOUT SYSTEM FÜR INDEX.HTML
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    updateNavigationBasedOnLogin();
-});
-
-function updateNavigationBasedOnLogin() {
-    const loginBtn = document.getElementById('login-btn');
-    const logoutBtn = document.getElementById('logout-btn');
-    const userMenu = document.getElementById('user-menu');
-    
-    const user = localStorage.getItem('smartgastro_user');
-    
-    if (user) {
-        // Benutzer ist EINGELOGGT
-        if (loginBtn) {
-            loginBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
-            loginBtn.onclick = function() {
-                window.location.href = 'dashboard.html';
-                return false;
-            };
-            loginBtn.href = '#';
-        }
-        
-        if (logoutBtn) {
-            logoutBtn.style.display = 'flex';
-        }
-        
-        if (userMenu) {
-            userMenu.style.display = 'block';
-        }
-    } else {
-        // Benutzer ist NICHT eingeloggt
-        if (loginBtn) {
-            loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Anmelden';
-            loginBtn.onclick = null;
-            loginBtn.href = 'login.html';
-        }
-        
-        if (logoutBtn) {
-            logoutBtn.style.display = 'none';
-        }
-        
-        if (userMenu) {
-            userMenu.style.display = 'none';
-        }
-    }
-}
-
-// Bei Änderungen im localStorage (Login/Logout) aktualisieren
-window.addEventListener('storage', function(e) {
-    if (e.key === 'smartgastro_user') {
-        updateNavigationBasedOnLogin();
-    }
-});
-
-// Alle 5 Sekunden prüfen (für Tabs/Windows Synchronisation)
-setInterval(updateNavigationBasedOnLogin, 5000);
-</script>  </script>
+    </script>
 </body>
 </html>
